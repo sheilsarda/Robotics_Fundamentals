@@ -37,7 +37,7 @@ class Main():
 
         jointPositions = np.zeros((6,3))
         T0e = np.identity(4)
-        "editing jointPositions"
+        print("editing jointPositions")
         jointPositions[0,:]=0
         jointPositions[1,0:1]=0
         jointPositions[1,2]=self.L1
@@ -54,7 +54,7 @@ class Main():
         jointPositions[5,1]=np.sin(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]))
         jointPositions[5,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2])-(self.L4+self.L5)*np.sin(q[3])
         
-        "Making the transformation matrix"
+        print("Making the transformation matrix")
         # Rotation matrix from frame 0 to 1
         A_0_1 = np.zeros((4,4))
         A_0_1[3,3]=1
