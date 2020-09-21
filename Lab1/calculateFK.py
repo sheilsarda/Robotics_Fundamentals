@@ -75,14 +75,53 @@ class Main():
 		A_1_2[0,0]=np.cos(np.pi - q[1])
 
 		# Rotation matrix from frame 2 to 3
-        A_1_2 = np.zeros((4,4))
-        A_1_2[3,3]=1
-        A_1_2[2,3]=self.L1
-        A_1_2[2,1]=-1
-        A_1_2[1,2]=np.cos(np.pi - q[1])
-		A_1_2[1,0]=np.sin(np.pi - q[1])
-		A_1_2[0,2]=-np.sin(np.pi - q[1])
-		A_1_2[0,0]=np.cos(np.pi - q[1])
+        A_2_3 = np.zeros((4,4))
+        A_2_3[3,3]=1
+        A_2_3[2,2]=1
+ 		A_2_3[1,3]=self.L2*np.sin(q[2] + np.pi/2)
+ 		A_2_3[1,1]=np.cos(q[2] + np.pi/2)
+ 		A_2_3[1,0]=np.sin(q[2] + np.pi/2)
+ 		A_2_3[0,3]=self.L2*np.cos(q[2] + np.pi/2)
+ 		A_2_3[0,1]=-np.sin(q[2] + np.pi/2)
+ 		A_2_3[0,0]=np.cos(q[2] + np.pi/2)
+
+ 		# Rotation matrix from frame 3 to 4
+        A_3_4 = np.zeros((4,4))
+        A_3_4[3,3]=1
+        A_3_4[2,2]=1
+        A_3_4[1,3]=self.L3*np.sin(q[3]-np.pi/2)
+        A_3_4[1,1]=np.cos(q[3]-np.pi/2)
+        A_3_4[1,0]=np.sin(q[3]-np.pi/2)
+        A_3_4[0,0]=np.cos(q[3]-np.pi/2)
+        A_3_4[0,1]=-np.sin(q[3]-np.pi/2)
+        A_3_4[0,1]=self.L3*np.cos(q[3]-np.pi/2)
+
+        # Rotation matrix from frame 3 to 4
+        A_3_4 = np.zeros((4,4))
+        A_3_4[3,3]=1
+        A_3_4[2,2]=1
+        A_3_4[1,3]=self.L3*np.sin(q[3]-np.pi/2)
+        A_3_4[1,1]=np.cos(q[3]-np.pi/2)
+        A_3_4[1,0]=np.sin(q[3]-np.pi/2)
+        A_3_4[0,0]=np.cos(q[3]-np.pi/2)
+        A_3_4[0,1]=-np.sin(q[3]-np.pi/2)
+        A_3_4[0,1]=self.L3*np.cos(q[3]-np.pi/2)
+
+
+        # Rotation matrix from frame 4 to 5
+        A_4_5 = np.zeros((4,4))
+        A_4_5[3,3]=1
+        A_4_5[2,1]=-1
+        A_4_5[1,0]=1
+        A_4_5[0,2]=-1
+
+        # Rotation matrix from frame 5 to e
+        A_5_e = np.zeros((4,4))
+        A_5_e[3,3]=1
+        A_5_e[2,3]=self.L4 + self.L5
+        A_5_e[2,2]=1
+        A_5_e[1,0]=1
+        A_5_e[0,1]=-1
 
         # Your code ends here
 
