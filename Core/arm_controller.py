@@ -72,7 +72,7 @@ class ROSInterface:
                 #interpolate states between current state and goal
                 diff = state[1] - self.pos
                 dist = np.max(np.abs(diff))
-                interp = np.linspace(0, 1, (100*dist).astype(np.int))
+                interp = np.linspace(0, 1, max(np.ceil(100*dist), 2))
                 self.move_seq = self.pos + interp[:,None]*diff[None,:]
                 self.move_ind = 0
 
@@ -171,7 +171,6 @@ class ArmController:
                     rospy.logwarn("Joint " + str(bad_joint) + " is above the limit " + 
                           str(self.joint_limits[1, bad_joint]))
                 scaled_state = np.minimum(scaled_state, self.joint_limits[1])
-
             scaled_state[-1] = (-scaled_state[-1]+30.)/45.*0.03
             self.cmd_q.put(("move", scaled_state))
         else:

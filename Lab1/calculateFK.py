@@ -37,6 +37,52 @@ class Main():
 
         jointPositions = np.zeros((6,3))
         T0e = np.identity(4)
+        "editing jointPositions"
+        jointPositions[0,:]=0
+        jointPositions[1,0:1]=0
+        jointPositions[1,2]=self.L1
+        jointPositions[2,0]=self.L2*np.sin(q[1])*np.cos(q[0])
+        jointPositions[2,1]=self.L2*np.sin(q[1])*np.sin(q[0])
+        jointPositions[2,2]=self.L2*np.cos(q[1])+self.L1
+        jointPositions[3,0]=np.cos(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1]))
+        jointPositions[3,1]=np.sin(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1]))
+        jointPositions[3,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2])
+        jointPositions[4,0]=np.cos(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]))
+        jointPositions[4,1]=np.sin(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]))
+        jointPositions[4,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2])-self.L4*np.sin(q[3])
+        jointPositions[5,0]=np.cos(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]))
+        jointPositions[5,1]=np.sin(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]))
+        jointPositions[5,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2])-(self.L4+self.L5)*np.sin(q[3])
+        
+        "Making the transformation matrix"
+        # Rotation matrix from frame 0 to 1
+        A_0_1 = np.zeros((4,4))
+        A_0_1[3,3]=1
+        A_0_1[2,2]=1
+        A_0_1[1,1]=np.cos(q[0])
+        A_0_1[1,0]=np.sin(q[0])
+        A_0_1[0,1]=-np.sin(q[0])
+        A_0_1[0,0]=np.cos(q[0])
+
+        # Rotation matrix from frame 1 to 2
+        A_1_2 = np.zeros((4,4))
+        A_1_2[3,3]=1
+        A_1_2[2,3]=self.L1
+        A_1_2[2,1]=-1
+        A_1_2[1,2]=np.cos(np.pi - q[1])
+		A_1_2[1,0]=np.sin(np.pi - q[1])
+		A_1_2[0,2]=-np.sin(np.pi - q[1])
+		A_1_2[0,0]=np.cos(np.pi - q[1])
+
+		# Rotation matrix from frame 2 to 3
+        A_1_2 = np.zeros((4,4))
+        A_1_2[3,3]=1
+        A_1_2[2,3]=self.L1
+        A_1_2[2,1]=-1
+        A_1_2[1,2]=np.cos(np.pi - q[1])
+		A_1_2[1,0]=np.sin(np.pi - q[1])
+		A_1_2[0,2]=-np.sin(np.pi - q[1])
+		A_1_2[0,0]=np.cos(np.pi - q[1])
 
         # Your code ends here
 
