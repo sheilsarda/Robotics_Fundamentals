@@ -113,8 +113,8 @@ class Main():
         A_5_e[0,1]=-1
 
         # T0e = (A_0_1 * A_1_2 * A_2_3 * A_3_4 * A_4_5 * A_5_e)
-	# T0e = np.linalg.multi_dot([A_0_1, A_1_2, A_2_3, A_3_4, A_4_5, A_5_e])
-	T0e = np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(A_0_1, A_1_2), A_2_3), A_3_4), A_4_5), A_5_e)
+	T0e = np.linalg.multi_dot([A_0_1, A_1_2, A_2_3, A_3_4, A_4_5, A_5_e])
+	# T0e = np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(A_0_1, A_1_2), A_2_3), A_3_4), A_4_5), A_5_e)
         # Your code ends here
 
         return jointPositions, T0e
