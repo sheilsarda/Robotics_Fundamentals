@@ -58,7 +58,7 @@ class Main():
         # Rotation matrix from frame 0 to 1
         A_0_1 = np.zeros((4,4))
         A_0_1[3,3]=1
-        A_0_1[2,3]=L1
+        A_0_1[2,3]=self.L1
         A_0_1[2,2]=np.cos(-np.pi/2)
         A_0_1[2,1]=np.sin(-np.pi/2)
         A_0_1[1,2]=-np.cos(np.pi + q[0])*np.sin(-np.pi/2)
@@ -73,11 +73,11 @@ class Main():
         A_1_2[3,3]=1
         A_1_2[2,2]=np.cos(0)
         A_1_2[2,1]=np.sin(0)
-        A_1_2[1,3]=-L2*np.sin(q[1] - np.pi/2)
+        A_1_2[1,3]=-self.L2*np.sin(q[1] - np.pi/2)
         A_1_2[1,2]=-np.cos(q[1] - np.pi/2)*np.sin(0)
         A_1_2[1,1]=np.cos(q[1] - np.pi/2)*np.cos(0)
         A_1_2[1,0]=np.sin(q[1] - np.pi/2)
-        A_1_2[0,3]=-L2*np.cos(q[1] - np.pi/2)
+        A_1_2[0,3]=-self.L2*np.cos(q[1] - np.pi/2)
         A_1_2[0,2]=np.sin(q[1] - np.pi/2)*np.sin(0)
         A_1_2[0,1]=-np.sin(q[1] - np.pi/2)*np.cos(0)
         A_1_2[0,0]=np.cos(q[1] - np.pi/2)
@@ -87,11 +87,11 @@ class Main():
         A_2_3[3,3]=1
         A_2_3[2,2]=np.cos(0)
         A_2_3[2,1]=np.sin(0)
-        A_2_3[1,3]=-L3*np.sin(q[2] - np.pi/2)
+        A_2_3[1,3]=-self.L3*np.sin(q[2] - np.pi/2)
         A_2_3[1,2]=-np.cos(q[2] - np.pi/2)*np.sin(0)
         A_2_3[1,1]=np.cos(q[2] - np.pi/2)*np.cos(0)
         A_2_3[1,0]=np.sin(q[2] - np.pi/2)
-        A_2_3[0,3]=-L3*np.cos(q[2] - np.pi/2)
+        A_2_3[0,3]=-self.L3*np.cos(q[2] - np.pi/2)
         A_2_3[0,2]=np.sin(q[2] - np.pi/2)*np.sin(0)
         A_2_3[0,1]=-np.sin(q[2] - np.pi/2)*np.cos(0)
         A_2_3[0,0]=np.cos(q[2] - np.pi/2)
