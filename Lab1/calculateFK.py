@@ -58,11 +58,15 @@ class Main():
         # Rotation matrix from frame 0 to 1
         A_0_1 = np.zeros((4,4))
         A_0_1[3,3]=1
-        A_0_1[2,2]=1
-        A_0_1[1,1]=np.cos(q[0])
-        A_0_1[1,0]=np.sin(q[0])
-        A_0_1[0,1]=-np.sin(q[0])
-        A_0_1[0,0]=np.cos(q[0])
+        A_0_1[2,3]=L1
+        A_0_1[2,2]=np.cos(-np.pi/2)
+        A_0_1[2,1]=np.sin(-np.pi/2)
+        A_0_1[1,2]=-np.cos(np.pi + q[0])*np.sin(-np.pi/2)
+        A_0_1[1,1]=np.cos(np.pi + q[0])*np.cos(-np.pi/2)
+        A_0_1[1,0]=np.sin(np.pi + q[0])
+        A_0_1[0,2]=np.sin(np.pi + q[0])*np.sin(-np.pi/2)
+        A_0_1[0,1]=-np.sin(np.pi + q[0])*np.cos(-np.pi/2)
+        A_0_1[0,0]=np.cos(np.pi + q[0])
 
         # Rotation matrix from frame 1 to 2
         A_1_2 = np.zeros((4,4))
