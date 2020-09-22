@@ -11,7 +11,7 @@ from calculateFK import Main
 # from calculateFK import Main
 
 # Modify q as configuration that running in the Gazebo simulation
-q = [0, 0, 0, 0, 0, 0]
+q = [0, 0, -np.pi/3, -np.pi/3, 0, 0]
 
 # Please do not modify anything below this
 if __name__=='__main__':
