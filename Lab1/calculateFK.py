@@ -108,25 +108,23 @@ class Main():
         A_3_4[0,1]=-np.sin(q[3]+np.pi/2)*np.cos(-np.pi/2)
         A_3_4[0,0]=np.cos(q[3]+np.pi/2)
         
-        # Rotation matrix from frame 4 to 5
-        A_4_5 = np.zeros((4,4))
-        A_4_5[3,3]=1
-        A_4_5[2,1]=-1
-        A_4_5[1,0]=1
-        A_4_5[0,2]=-1
-
-        # Rotation matrix from frame 5 to e
-        A_5_e = np.zeros((4,4))
-        A_5_e[3,3]=1
-        A_5_e[2,3]=self.L4 + self.L5
-        A_5_e[2,2]=1
-        A_5_e[1,0]=1
-        A_5_e[0,1]=-1
+        # Rotation matrix from frame 4 to e
+        A_4_e = np.zeros((4,4))
+        A_4_e[3,3]=1
+        A_4_e[2,3]=self.L4 + self.L5
+        A_4_e[2,2]=np.cos(0)
+        A_4_e[2,1]=np.sin(0)
+        A_4_e[1,2]=-np.cos(q[4])*np.sin(0)
+        A_4_e[1,1]=np.cos(q[4])*np.cos(0)
+        A_4_e[1,0]=np.sin(q[4])
+        A_4_e[0,2]=np.sin(q[4])*np.sin(0)
+        A_4_e[0,1]=-np.sin(q[4])*np.cos(0)
+        A_4_e[0,0]=np.cos(q[4])
 
         # T0e = (A_0_1 * A_1_2 * A_2_3 * A_3_4 * A_4_5 * A_5_e)
         # T0e = np.linalg.multi_dot([A_0_1, A_1_2, A_2_3, A_3_4, A_4_5, A_5_e])
         # T0e = np.linalg.multi_dot([A_5_e, A_4_5, A_3_4, A_2_3, A_1_2, A_0_1])
-        T0e = np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(A_0_1, A_1_2), A_2_3), A_3_4), A_4_5), A_5_e)
+        T0e = np.matmul(np.matmul(np.matmul(np.matmul(A_0_1, A_1_2), A_2_3), A_3_4), A_4_e)
         
         # Your code ends here
 
