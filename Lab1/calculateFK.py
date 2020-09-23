@@ -44,28 +44,28 @@ class Main():
         jointPositions[2,0]=self.L2*np.sin(q[1])*np.cos(q[0])
         jointPositions[2,1]=self.L2*np.sin(q[1])*np.sin(q[0])
         jointPositions[2,2]=self.L2*np.cos(q[1])+self.L1
-        jointPositions[3,0]=np.cos(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1]))
-        jointPositions[3,1]=np.sin(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1]))
-        jointPositions[3,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2])
-        jointPositions[4,0]=np.cos(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]))
-        jointPositions[4,1]=np.sin(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]))
-        jointPositions[4,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2])-self.L4*np.sin(q[3])
-        jointPositions[5,0]=np.cos(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]))
-        jointPositions[5,1]=np.sin(q[0])*(self.L3*np.cos(q[2])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]))
-        jointPositions[5,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2])-(self.L4+self.L5)*np.sin(q[3])
-        
+        jointPositions[3,0]=np.cos(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1]))
+        jointPositions[3,1]=np.sin(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1]))
+        jointPositions[3,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2]+q[1])
+        jointPositions[4,0]=np.cos(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]+q[2]+q[1]))
+        jointPositions[4,1]=np.sin(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]+q[2]+q[1]))
+        jointPositions[4,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2]+q[1])-self.L4*np.sin(q[3]+q[2]+q[1])
+        jointPositions[5,0]=np.cos(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]+q[2]+q[1]))
+        jointPositions[5,1]=np.sin(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]+q[2]+q[1]))
+        jointPositions[5,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2]+q[1])-(self.L4+self.L5)*np.sin(q[3]+q[2]+q[1])
+
         print("Making the transformation matrix")
         # Rotation matrix from frame 0 to 1
         A_0_1 = np.zeros((4,4))
         A_0_1[3,3]=1
         A_0_1[2,3]=self.L1
-        A_0_1[2,2]=np.cos(-np.pi/2)
-        A_0_1[2,1]=np.sin(-np.pi/2)
-        A_0_1[1,2]=-np.cos(np.pi + q[0])*np.sin(-np.pi/2)
-        A_0_1[1,1]=np.cos(np.pi + q[0])*np.cos(-np.pi/2)
+        A_0_1[2,2]=np.cos(np.pi/2)
+        A_0_1[2,1]=np.sin(np.pi/2)
+        A_0_1[1,2]=-np.cos(np.pi + q[0])*np.sin(np.pi/2)
+        A_0_1[1,1]=np.cos(np.pi + q[0])*np.cos(np.pi/2)
         A_0_1[1,0]=np.sin(np.pi + q[0])
-        A_0_1[0,2]=np.sin(np.pi + q[0])*np.sin(-np.pi/2)
-        A_0_1[0,1]=-np.sin(np.pi + q[0])*np.cos(-np.pi/2)
+        A_0_1[0,2]=np.sin(np.pi + q[0])*np.sin(np.pi/2)
+        A_0_1[0,1]=-np.sin(np.pi + q[0])*np.cos(np.pi/2)
         A_0_1[0,0]=np.cos(np.pi + q[0])
 
         # Rotation matrix from frame 1 to 2
@@ -73,14 +73,14 @@ class Main():
         A_1_2[3,3]=1
         A_1_2[2,2]=np.cos(0)
         A_1_2[2,1]=np.sin(0)
-        A_1_2[1,3]=-self.L2*np.sin(q[1] - np.pi/2)
-        A_1_2[1,2]=-np.cos(q[1] - np.pi/2)*np.sin(0)
-        A_1_2[1,1]=np.cos(q[1] - np.pi/2)*np.cos(0)
-        A_1_2[1,0]=np.sin(q[1] - np.pi/2)
-        A_1_2[0,3]=-self.L2*np.cos(q[1] - np.pi/2)
-        A_1_2[0,2]=np.sin(q[1] - np.pi/2)*np.sin(0)
-        A_1_2[0,1]=-np.sin(q[1] - np.pi/2)*np.cos(0)
-        A_1_2[0,0]=np.cos(q[1] - np.pi/2)
+        A_1_2[1,3]=-self.L2*np.sin(q[1] + np.pi/2)
+        A_1_2[1,2]=-np.cos(q[1] + np.pi/2)*np.sin(0)
+        A_1_2[1,1]=np.cos(q[1] + np.pi/2)*np.cos(0)
+        A_1_2[1,0]=np.sin(q[1] + np.pi/2)
+        A_1_2[0,3]=-self.L2*np.cos(q[1] + np.pi/2)
+        A_1_2[0,2]=np.sin(q[1] + np.pi/2)*np.sin(0)
+        A_1_2[0,1]=-np.sin(q[1] + np.pi/2)*np.cos(0)
+        A_1_2[0,0]=np.cos(q[1] + np.pi/2)
 
         # Rotation matrix from frame 2 to 3
         A_2_3 = np.zeros((4,4))
@@ -107,7 +107,7 @@ class Main():
         A_3_4[0,2]=np.sin(q[3]+np.pi/2)*np.sin(-np.pi/2)
         A_3_4[0,1]=-np.sin(q[3]+np.pi/2)*np.cos(-np.pi/2)
         A_3_4[0,0]=np.cos(q[3]+np.pi/2)
-        
+
         # Rotation matrix from frame 4 to e
         A_4_e = np.zeros((4,4))
         A_4_e[3,3]=1
@@ -122,9 +122,10 @@ class Main():
         A_4_e[0,0]=np.cos(q[4])
 
         # T0e = (A_0_1 * A_1_2 * A_2_3 * A_3_4 * A_4_5 * A_5_e)
-        T0e = np.linalg.multi_dot([A_0_1, A_1_2, A_2_3, A_3_4, A_4_e])
-        # T0e = np.matmul(np.matmul(np.matmul(np.matmul(A_0_1, A_1_2), A_2_3), A_3_4), A_4_e)
-        
+        #T0e = np.linalg.multi_dot([A_0_1, A_1_2, A_2_3, A_3_4, A_4_e])
+        #T0e = np.linalg.multi_dot([A_5_e, A_4_5, A_3_4, A_2_3, A_1_2, A_0_1])
+        T0e = np.matmul(np.matmul(np.matmul(np.matmul(A_0_1, A_1_2), A_2_3), A_3_4), A_4_e)
+
         # Your code ends here
 
         return jointPositions, T0e
