@@ -73,11 +73,11 @@ class Main():
         A_1_2[3,3]=1
         A_1_2[2,2]=np.cos(0)
         A_1_2[2,1]=np.sin(0)
-        A_1_2[1,3]=-self.L2*np.sin(q[1] + np.pi/2)
+        A_1_2[1,3]=self.L2*np.sin(q[1] + np.pi/2)
         A_1_2[1,2]=-np.cos(q[1] + np.pi/2)*np.sin(0)
         A_1_2[1,1]=np.cos(q[1] + np.pi/2)*np.cos(0)
         A_1_2[1,0]=np.sin(q[1] + np.pi/2)
-        A_1_2[0,3]=-self.L2*np.cos(q[1] + np.pi/2)
+        A_1_2[0,3]=self.L2*np.cos(q[1] + np.pi/2)
         A_1_2[0,2]=np.sin(q[1] + np.pi/2)*np.sin(0)
         A_1_2[0,1]=-np.sin(q[1] + np.pi/2)*np.cos(0)
         A_1_2[0,0]=np.cos(q[1] + np.pi/2)
