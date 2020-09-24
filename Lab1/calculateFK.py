@@ -37,26 +37,31 @@ class Main():
 
         jointPositions = np.zeros((6,3))
         T0e = np.identity(4)
+
+        print("Editing jointPositions")
         
-        print("editing jointPositions")
-        jointPositions[0,:]=0
-        jointPositions[1,0:1]=0
+        # Joint 2
         jointPositions[1,2]=self.L1
+        # Joint 3
         jointPositions[2,0]=self.L2*np.sin(q[1])*np.cos(q[0])
         jointPositions[2,1]=self.L2*np.sin(q[1])*np.sin(q[0])
         jointPositions[2,2]=self.L2*np.cos(q[1])+self.L1
+        # Joint 4
         jointPositions[3,0]=np.cos(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1]))
         jointPositions[3,1]=np.sin(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1]))
         jointPositions[3,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2]+q[1])
+        # Joint 5
         jointPositions[4,0]=np.cos(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]+q[2]+q[1]))
         jointPositions[4,1]=np.sin(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+self.L4*np.cos(q[3]+q[2]+q[1]))
         jointPositions[4,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2]+q[1])-self.L4*np.sin(q[3]+q[2]+q[1])
+        # Joint 6
         jointPositions[5,0]=np.cos(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]+q[2]+q[1]))
         jointPositions[5,1]=np.sin(q[0])*(self.L3*np.cos(q[2]+q[1])+self.L2*np.sin(q[1])+(self.L4+self.L5)*np.cos(q[3]+q[2]+q[1]))
         jointPositions[5,2]=self.L2*np.cos(q[1])+self.L1-self.L3*np.sin(q[2]+q[1])-(self.L4+self.L5)*np.sin(q[3]+q[2]+q[1])
 
-        print("Making the transformation matrix")
-        # Rotation matrix from frame 0 to 1
+        print("Making the transformation matrices")
+
+        # Transformation matrix from frame 0 to 1
         A_0_1 = np.zeros((4,4))
         A_0_1[3,3]=1
         A_0_1[2,3]=self.L1
@@ -69,7 +74,7 @@ class Main():
         A_0_1[0,1]=-np.sin(np.pi + q[0])*np.cos(np.pi/2)
         A_0_1[0,0]=np.cos(np.pi + q[0])
 
-        # Rotation matrix from frame 1 to 2
+        # Transformation matrix from frame 1 to 2
         A_1_2 = np.zeros((4,4))
         A_1_2[3,3]=1
         A_1_2[2,2]=np.cos(0)
@@ -83,7 +88,7 @@ class Main():
         A_1_2[0,1]=-np.sin(q[1] + np.pi/2)*np.cos(0)
         A_1_2[0,0]=np.cos(q[1] + np.pi/2)
 
-        # Rotation matrix from frame 2 to 3
+        # Transformation matrix from frame 2 to 3
         A_2_3 = np.zeros((4,4))
         A_2_3[3,3]=1
         A_2_3[2,2]=np.cos(0)
@@ -97,7 +102,7 @@ class Main():
         A_2_3[0,1]=-np.sin(q[2] - np.pi/2)*np.cos(0)
         A_2_3[0,0]=np.cos(q[2] - np.pi/2)
 
-        # Rotation matrix from frame 3 to 4
+        # Transformation matrix from frame 3 to 4
         A_3_4 = np.zeros((4,4))
         A_3_4[3,3]=1
         A_3_4[2,2]=np.cos(-np.pi/2)
@@ -109,7 +114,7 @@ class Main():
         A_3_4[0,1]=-np.sin(q[3]+np.pi/2)*np.cos(-np.pi/2)
         A_3_4[0,0]=np.cos(q[3]+np.pi/2)
 
-        # Rotation matrix from frame 4 to e
+        # Transformation matrix from frame 4 to e
         A_4_e = np.zeros((4,4))
         A_4_e[3,3]=1
         A_4_e[2,3]=self.L4 + self.L5
@@ -122,9 +127,6 @@ class Main():
         A_4_e[0,1]=-np.sin(q[4])*np.cos(0)
         A_4_e[0,0]=np.cos(q[4])
 
-        # T0e = (A_0_1 * A_1_2 * A_2_3 * A_3_4 * A_4_5 * A_5_e)
-        #T0e = np.linalg.multi_dot([A_0_1, A_1_2, A_2_3, A_3_4, A_4_e])
-        #T0e = np.linalg.multi_dot([A_5_e, A_4_5, A_3_4, A_2_3, A_1_2, A_0_1])
         T0e = np.matmul(np.matmul(np.matmul(np.matmul(A_0_1, A_1_2), A_2_3), A_3_4), A_4_e)
 
         # Your code ends here
