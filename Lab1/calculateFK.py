@@ -37,6 +37,7 @@ class Main():
 
         jointPositions = np.zeros((6,3))
         T0e = np.identity(4)
+        
         print("editing jointPositions")
         jointPositions[0,:]=0
         jointPositions[1,0:1]=0
