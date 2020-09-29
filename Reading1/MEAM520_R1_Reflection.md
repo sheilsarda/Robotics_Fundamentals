@@ -29,16 +29,30 @@ We studied the use of vectors to express spatial relationships, and this is an a
 
 ## Evaluation: Score the paper according to our lab report rubric. Review the document and provide justification
 
-| Category 	    | Score |
-|------------   |---	|
-| Completeness 	| 5  	|
-| Method 	    | 3 	|
-| Evaluation 	| 4  	|
-| Analysis  	| 5  	|
-| Clarity  	    | 3 	|
+| Category      | Score |
+|------------   |-------|
+| Completeness  | 5     |
+| Method        | 3     |
+| Evaluation    | 4     |
+| Analysis      | 5     |
+| Clarity       | 3     |
+
+The sections where I think there is still room for improvement are the method, evaluation and clarity.
+
+While I believe the paper did a good job of setting up the use-case for quaternions as a substitute for homogenous matrix transformations, it did not expand on the limitations of using quaternions in a lot of detail.
+
+On the evaluation front, the paper did not contrast the homogenous matrix solution for inverse kinematics of the Puma robot with the quaternion solution defined in the last section.
+
+In regards to clarity, I believe the authors could have done a better job of organizing the sections into a top-down format.
 
 ## Strengths: What did the paper do well? Were the methods sufficiently explained? Did the authors evaluate the work and provide a complete analysis? Was the writing and organization clear and understandable
 
+The paper did a great job of making logical arguments and supporting it with data, as well as drawing a clear link between the hardware and software.
+
+For instance, presenting a parallelized version of the regularization computation for homogenous matrices and quaternions to illustrate how quaternions are less computationally intensive.
+
 ## Weaknesses: What could be improved to make the paper stronger
+
+Listed in the feedback of the Evaluation section.
 
 ## List any questions or additional comments you have about the paper
