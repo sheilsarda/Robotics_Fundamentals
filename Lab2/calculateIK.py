@@ -39,6 +39,15 @@ class Main():
         isPos = 1
         q = np.zeros((1, 6))
         # Your code starts from here
+        
+        # Rotation matrix from frame 0 to frame 1
+        R_01 = np.zeros((3, 3))
+        R_01[2, 1]= np.sin(q[0])
+        R_01[1, 2]= -np.cos(q[0])
+        R_01[1, 0]= np.sin(q[0])
+        R_01[0, 2]= -np.sin(q[0])
+        R_01[0, 0]= np.cos(q[0])
+
 
         # Your code ends here
 
