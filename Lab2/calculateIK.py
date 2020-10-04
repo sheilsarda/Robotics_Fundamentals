@@ -44,7 +44,7 @@ class Main():
 
         # Rotation matrix from frame 0 to frame 1
         R_01 = np.zeros((3, 3))
-        R_01[2,1]= np.sin(thetas[0])
+        R_01[2,1]= np.sin(q[0])
         R_01[1,2]= -np.cos(q[0])
         R_01[1,0]= np.sin(q[0])
         R_01[0,2]= -np.sin(q[0])
@@ -68,10 +68,13 @@ class Main():
 
         # Rotation from frame 0 to frame 3 (wrist)
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
-        
+        print("R_03 shape: ", R_03.shape) 
         # Rotation from frame 0 to end effector
-        R = T0e[0:2][0:2]
-
+        R = np.zeros((3, 3))
+        for i in range(0, 3):
+            for j in range(0, 3):
+                R[i,j] = T0e[i,j]
+        print("R shape w/ rows and cols: ", R.shape)
         # Rotation from wrist to end-effector
         R_3e = np.matmul(np.transpose(R_03), R)
         print('Wrist to end effector = ')
