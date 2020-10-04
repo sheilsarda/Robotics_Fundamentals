@@ -49,6 +49,14 @@ class Main():
         R_01[0, 0]= np.cos(q[0])
 
 
+        # Rotation matrix from frame 1 to frame 2
+        R_12 = np.zeros((3, 3))
+        R_12[2, 2]= 1
+        R_12[1, 1]= np.cos(q[1])
+        R_12[1, 0]= np.sin(q[1])
+        R_12[0, 1]= -np.sin(q[1])
+        R_12[0, 0]= np.cos(q[1])
+
         # Your code ends here
 
         return q, isPos
