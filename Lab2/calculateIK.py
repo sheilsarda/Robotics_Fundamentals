@@ -42,36 +42,38 @@ class Main():
         
         # Rotation matrix from frame 0 to frame 1
         R_01 = np.zeros((3, 3))
-        R_01[2][1]= np.sin(q[0])
-        R_01[1][2]= -np.cos(q[0])
-        R_01[1][0]= np.sin(q[0])
-        R_01[0][2]= -np.sin(q[0])
-        R_01[0][0]= np.cos(q[0])
+        R_01[2,1]= np.sin(q[0])
+        R_01[1,2]= -np.cos(q[0])
+        R_01[1,0]= np.sin(q[0])
+        R_01[0,2]= -np.sin(q[0])
+        R_01[0,0]= np.cos(q[0])
 
         # Rotation matrix from frame 1 to frame 2
         R_12 = np.zeros((3, 3))
-        R_12[2][2]= 1
-        R_12[1][1]= np.cos(q[1])
-        R_12[1][0]= np.sin(q[1])
-        R_12[0][1]= -np.sin(q[1])
-        R_12[0][0]= np.cos(q[1])
+        R_12[2,2]= 1
+        R_12[1,1]= np.cos(q[1])
+        R_12[1,0]= np.sin(q[1])
+        R_12[0,1]= -np.sin(q[1])
+        R_12[0,0]= np.cos(q[1])
 
         # Rotation matrix from frame 2 to frame 3
         R_23 = np.zeros((3, 3))
-        R_23[2][2]= 1
-        R_23[1][1]= np.cos(q[2])
-        R_23[1][0]= np.sin(q[2])
-        R_23[0][1]= -np.sin(q[2])
-        R_23[0][0]= np.cos(q[2])
+        R_23[2,2]= 1
+        R_23[1,1]= np.cos(q[2])
+        R_23[1,0]= np.sin(q[2])
+        R_23[0,1]= -np.sin(q[2])
+        R_23[0,0]= np.cos(q[2])
 
         # Rotation from frame 0 to frame 3 (wrist)
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
         
         # Rotation from frame 0 to end effector
-        # R = T0e[0:2][0:2]
+        R = T0e[0:2][0:2]
 
         # Rotation from wrist to end-effector
         R_3e = np.matmul(np.transpose(R_03), R)
+        print('Wrist to end effector = ')
+        print(R_3e)
 
         # Your code ends here
 
