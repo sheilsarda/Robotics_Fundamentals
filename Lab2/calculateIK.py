@@ -64,6 +64,15 @@ class Main():
         R_23[0, 1]= -np.sin(q[2])
         R_23[0, 0]= np.cos(q[2])
 
+        # Rotation from frame 0 to frame 3 (wrist)
+        R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
+        
+        # Rotation from frame 0 to end effector
+        R = T0e[0:2][0:2]
+
+        # Rotation from wrist to end-effector
+        R_3e = np.matmul(np.transpose(R_03), R)
+
         # Your code ends here
 
         return q, isPos
