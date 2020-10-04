@@ -30,7 +30,7 @@ T0e = np.array([[  1, 0, 0, 225.325],[0, -1, 0, 0],[0, 0, -1, 222.25],[0,0,0,1]]
 # Please do not modify anything below this
 if __name__=='__main__':
     main = Main()
-    q, isPos = main.inverse(deepcopy(T0e))
+    [q, isPos] = main.inverse(deepcopy(T0e))
     np.set_printoptions(precision=6, suppress=True)
     cont = ArmController()
     sleep(1)
