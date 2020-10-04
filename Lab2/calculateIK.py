@@ -48,7 +48,6 @@ class Main():
         R_01[0, 2]= -np.sin(q[0])
         R_01[0, 0]= np.cos(q[0])
 
-
         # Rotation matrix from frame 1 to frame 2
         R_12 = np.zeros((3, 3))
         R_12[2, 2]= 1
@@ -56,6 +55,14 @@ class Main():
         R_12[1, 0]= np.sin(q[1])
         R_12[0, 1]= -np.sin(q[1])
         R_12[0, 0]= np.cos(q[1])
+
+        # Rotation matrix from frame 2 to frame 3
+        R_23 = np.zeros((3, 3))
+        R_23[2, 2]= 1
+        R_23[1, 1]= np.cos(q[2])
+        R_23[1, 0]= np.sin(q[2])
+        R_23[0, 1]= -np.sin(q[2])
+        R_23[0, 0]= np.cos(q[2])
 
         # Your code ends here
 
