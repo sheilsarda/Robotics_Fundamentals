@@ -120,19 +120,19 @@ class Main():
         R[0,0] = -1
         R[1,1] = -1
 
-        R_3e_test = np.matmul(np.transpose(R_03), R)
+        R_3e_test = np.matmul(np.linalg.inv(R_03), R)
         print('R_3e = ')
         print(R_3e_test)
 
         # Theta_5
-        theta5 = np.arccos(-R_3e_test[2,1])
+        theta5 = np.arccos(-R_3e[2,1])
         print('Theta_5 = ', theta5, ' rads')
         q[0,4] = theta5
         
         # Theta_4
-        theta4 = np.arccos(R_3e_test[0,0] / np.cos(theta5))
+        theta4 = np.arccos(R_3e[0,0] / np.cos(theta5))
         print('Theta_4 = ', theta4, ' rads')
-        q[0,3] = theta3
+        q[0,3] = theta4
 
         # R_3e_check
         print('R_3e from DH = ')
