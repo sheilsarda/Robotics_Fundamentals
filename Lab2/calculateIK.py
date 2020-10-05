@@ -83,45 +83,53 @@ class Main():
         R_45[0,0] = np.cos(q[4])
 
         # Positions
-        x_wrist = 1
-        y_wrist = 1
+        x_wrist = 200
+        y_wrist = 200
         z_wrist = 1
 
         # Constants
-        d1 = 76.2
-        a2 = 146.05
-        a3 = 187.325
-        d5 = 68
+        d1 = self.d1
+        a2 = self.a2
+        a3 = self.a3
+        d5 = self.d5
 
         # Theta_1
-        theta1 = np.arctan2(y_wrist / x_wrist)
-
-        # Theta_2
-        theta2 =  np.pi/2 
-                - np.arctan2((z_wrist - d1) / 
-                             (np.sqrt(x_wrist**2 + y_wrist**2)))
-                + np.arctan2((a3*np.sin(-np.pi/2 - theta3)) / 
-                             (a2 + a3*np.cos(-np.pi/2 - theta3)))
+        theta1 = np.arctan2(y_wrist , x_wrist)
+        q[0] = theta1
 
         # Theta_3
-        theta3 = -np.pi/2 
-                 - np.arccos((x_wrist**2 + y_wrist**2 + (z_wrist - d1**2) - a2**2 - a3**2) / 
-                             (2*a2*a3))
+        theta3 = -np.pi/2 - np.arccos((x_wrist**2 + y_wrist**2 + (z_wrist - d1**2) - a2**2 - a3**2) / (2*a2*a3))
+        q[2] = theta3
 
+        # Theta_2
+        theta2 =  np.pi/2 - np.arctan2((z_wrist - d1) , (np.sqrt(x_wrist**2 + y_wrist**2))) + np.arctan2((a3*np.sin(-np.pi/2 - theta3)) , (a2 + a3*np.cos(-np.pi/2 - theta3))) 
+        q[1] = theta2
 
         # Rotation from frame 0 to frame 3 (wrist)
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
-        print("R_03 shape: ", R_03.shape) 
+
+        # Rotation from frame 3 (wrist) to frame e (end-effector)
+        R_3e = np.matmul(R_34, R_45)
+        
         # Rotation from frame 0 to end effector
         R = np.zeros((3, 3))
         for i in range(0, 3):
             for j in range(0, 3):
                 R[i,j] = T0e[i,j]
-        print("R shape w/ rows and cols: ", R.shape)
+        
         # Rotation from wrist to end-effector
         R_3e = np.matmul(np.transpose(R_03), R)
-        print('Wrist to end effector = ')
+        print('R_3e = ')
         print(R_3e)
+
+        R_test = np.eye((3))
+        R_test[0,0] = -1
+        R_test[1,1] = -1
+
+        R_3e_test = np.matmul(np.transpose(R_03), R_test)
+        print('R_3e = ')
+        print(R_3e)
+
 
         # Your code ends here
 
