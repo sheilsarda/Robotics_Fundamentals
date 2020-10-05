@@ -105,10 +105,7 @@ class Main():
 
         # Rotation from frame 0 to frame 3 (wrist) using post-multiplication of DH
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
-
-        # Rotation from frame 3 (wrist) to frame e (end-effector) using post-multiplication of DH
-        R_3e = np.matmul(R_34, R_45)
-        
+    
         # Rotation from frame 0 to end effector
         # R = np.zeros((3, 3))
         # for i in range(0, 3):
@@ -120,7 +117,7 @@ class Main():
         R[0,0] = -1
         R[1,1] = -1
 
-        R_3e_test = np.matmul(np.linalg.inv(R_03), R)
+        R_3e = np.matmul(np.linalg.inv(R_03), R)
         print('R_3e = ')
         print(R_3e_test)
 
@@ -134,11 +131,14 @@ class Main():
         print('Theta_4 = ', theta4, ' rads')
         q[0,3] = theta4
 
-        # R_3e_check
+        # R_3e_check-- rotation from frame 3 (wrist) 
+        # to frame e (end-effector) using post-multiplication 
+        # of DH
+        R_3e_test = np.matmul(R_34, R_45)
         print('R_3e from DH = ')
         print(R_3e)        
 
         print('q after populating every theta: ', q)
         # Your code ends here
 
-        return q_matrix, isPos
+        return q, isPos
