@@ -105,6 +105,8 @@ class Main():
 
         # Theta_3
         theta3 = -np.pi/2 
+                 - np.arccos((x_wrist**2 + y_wrist**2 + (z_wrist - d1**2) - a2**2 - a3**2) / 
+                             (2*a2*a3))
 
 
         # Rotation from frame 0 to frame 3 (wrist)
