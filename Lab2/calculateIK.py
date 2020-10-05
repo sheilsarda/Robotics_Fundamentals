@@ -41,8 +41,8 @@ class Main():
         # Your code starts from here
 
         # Positions -- dummy values for now
-        x_wrist = 200
-        y_wrist = 200
+        x_wrist = 1
+        y_wrist = 1
         z_wrist = 1
 
         # Theta_1
@@ -114,12 +114,12 @@ class Main():
         
         # Input a rotation matrix to find theta4 and theta5
         R = np.eye((3))
-        R[0,0] = -1
-        R[1,1] = -1
+        # R[0,0] = -1
+        # R[1,1] = -1
 
         R_3e = np.matmul(np.linalg.inv(R_03), R)
         print('R_3e = ')
-        print(R_3e_test)
+        print(R_3e)
 
         # Theta_5
         theta5 = np.arccos(-R_3e[2,1])
@@ -136,7 +136,7 @@ class Main():
         # of DH
         R_3e_test = np.matmul(R_34, R_45)
         print('R_3e from DH = ')
-        print(R_3e)        
+        print(R_3e_test)        
 
         print('q after populating every theta: ', q)
         # Your code ends here
