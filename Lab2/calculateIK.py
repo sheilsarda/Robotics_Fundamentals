@@ -66,6 +66,33 @@ class Main():
         R_23[0,1]= -np.sin(q[2])
         R_23[0,0]= np.cos(q[2])
 
+        # Rotation matrix from frame 3 to frame 4
+        R_34 = np.zeros((3, 3))
+        R_34[2,1] = -1
+        R_34[1,2] = np.cos(q[3])
+        R_34[1,0] = np.sin(q[3])
+        R_34[0,2] = -np.sin(q[3])
+        R_34[0,0] = np.cos(q[3])
+
+        # Rotation matrix from frame 4 to frame 5
+        R_45 = np.zeros((3, 3))
+        R_45[2,2] = 1
+        R_45[1,1] = np.cos(q[4])
+        R_45[1,0] = np.sin(q[4])
+        R_45[0,1] = -np.sin(q[4])
+        R_45[0,0] = np.cos(q[4])
+
+        # Positions
+        x_wrist = 1
+        y_wrist = 1
+        z_wrist = 1
+
+        # Theta_1
+        theta1 = np.arctan2(y_wrist / x_wrist)
+
+        # Theta_2
+        theta2 = np.pi/2 - np.arctan2()
+
         # Rotation from frame 0 to frame 3 (wrist)
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
         print("R_03 shape: ", R_03.shape) 
