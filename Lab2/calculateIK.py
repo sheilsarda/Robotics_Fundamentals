@@ -42,6 +42,35 @@ class Main():
         
         q = q_matrix[0]
 
+        # Positions -- dummy values for now
+        x_wrist = 200
+        y_wrist = 200
+        z_wrist = 1
+
+        # Constants
+        d1 = self.d1
+        a2 = self.a2
+        a3 = self.a3
+        d5 = self.d5
+
+        # Theta_1
+        theta1 = np.arctan2(y_wrist , x_wrist)
+        print('Theta_1 = ', theta1, ' rads')
+        q[0] = theta1
+
+        # Theta_3
+        theta3 = -np.pi/2 - np.arccos((x_wrist**2 + y_wrist**2 + (z_wrist - d1**2) - a2**2 - a3**2) / (2*a2*a3))
+        print('Theta_3 = ', theta3, ' rads')
+        q[2] = theta3
+
+        # Theta_2
+        theta2 =  np.pi/2 - np.arctan2((z_wrist - d1) , (np.sqrt(x_wrist**2 + y_wrist**2))) + np.arctan2((a3*np.sin(-np.pi/2 - theta3)) , (a2 + a3*np.cos(-np.pi/2 - theta3))) 
+        print('Theta_2 = ', theta2, ' rads')
+        q[1] = theta2
+
+        print('q before populating every theta: ', q)
+
+
         # Rotation matrix from frame 0 to frame 1
         R_01 = np.zeros((3, 3))
         R_01[2,1]= np.sin(q[0])
@@ -82,55 +111,42 @@ class Main():
         R_45[0,1] = -np.sin(q[4])
         R_45[0,0] = np.cos(q[4])
 
-        # Positions
-        x_wrist = 200
-        y_wrist = 200
-        z_wrist = 1
-
-        # Constants
-        d1 = self.d1
-        a2 = self.a2
-        a3 = self.a3
-        d5 = self.d5
-
-        # Theta_1
-        theta1 = np.arctan2(y_wrist , x_wrist)
-        q[0] = theta1
-
-        # Theta_3
-        theta3 = -np.pi/2 - np.arccos((x_wrist**2 + y_wrist**2 + (z_wrist - d1**2) - a2**2 - a3**2) / (2*a2*a3))
-        q[2] = theta3
-
-        # Theta_2
-        theta2 =  np.pi/2 - np.arctan2((z_wrist - d1) , (np.sqrt(x_wrist**2 + y_wrist**2))) + np.arctan2((a3*np.sin(-np.pi/2 - theta3)) , (a2 + a3*np.cos(-np.pi/2 - theta3))) 
-        q[1] = theta2
-
-        # Rotation from frame 0 to frame 3 (wrist)
+        # Rotation from frame 0 to frame 3 (wrist) using post-multiplication of DH
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
 
-        # Rotation from frame 3 (wrist) to frame e (end-effector)
+        # Rotation from frame 3 (wrist) to frame e (end-effector) using post-multiplication of DH
         R_3e = np.matmul(R_34, R_45)
         
         # Rotation from frame 0 to end effector
-        R = np.zeros((3, 3))
-        for i in range(0, 3):
-            for j in range(0, 3):
-                R[i,j] = T0e[i,j]
+        # R = np.zeros((3, 3))
+        # for i in range(0, 3):
+        #     for j in range(0, 3):
+        #         R[i,j] = T0e[i,j]
         
-        # Rotation from wrist to end-effector
-        R_3e = np.matmul(np.transpose(R_03), R)
+        # Input a rotation matrix to find theta4 and theta5
+        R = np.eye((3))
+        R[0,0] = -1
+        R[1,1] = -1
+
+        R_3e_test = np.matmul(np.transpose(R_03), R)
         print('R_3e = ')
-        print(R_3e)
+        print(R_3e_test)
 
-        R_test = np.eye((3))
-        R_test[0,0] = -1
-        R_test[1,1] = -1
+        # Theta_5
+        theta5 = np.arccos(-R_3e_test[2,1])
+        print('Theta_5 = ', theta5, ' rads')
+        q[4] = theta5
+        
+        # Theta_4
+        theta4 = np.arccos(R_3e_test[0,0] / np.cos(theta5))
+        print('Theta_4 = ', theta4, ' rads')
+        q[3] = theta3
 
-        R_3e_test = np.matmul(np.transpose(R_03), R_test)
-        print('R_3e = ')
-        print(R_3e)
+        # R_3e_check
+        print('R_3e from DH = ')
+        print(R_3e)        
 
-
+        print('q after populating every theta: ', q)
         # Your code ends here
 
         return q_matrix, isPos
