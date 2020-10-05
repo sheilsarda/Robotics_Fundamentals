@@ -87,11 +87,25 @@ class Main():
         y_wrist = 1
         z_wrist = 1
 
+        # Constants
+        d1 = 76.2
+        a2 = 146.05
+        a3 = 187.325
+        d5 = 68
+
         # Theta_1
         theta1 = np.arctan2(y_wrist / x_wrist)
 
         # Theta_2
-        theta2 = np.pi/2 - np.arctan2()
+        theta2 =  np.pi/2 
+                - np.arctan2((z_wrist - d1) / 
+                             (np.sqrt(x_wrist**2 + y_wrist**2)))
+                + np.arctan2((a3*np.sin(-np.pi/2 - theta3)) / 
+                             (a2 + a3*np.cos(-np.pi/2 - theta3)))
+
+        # Theta_3
+        theta3 = -np.pi/2 
+
 
         # Rotation from frame 0 to frame 3 (wrist)
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
