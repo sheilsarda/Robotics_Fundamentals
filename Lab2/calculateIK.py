@@ -37,79 +37,71 @@ class Main():
              ignoring joint limits
         """
         isPos = 1
-        q_matrix = np.zeros((1, 6))
+        q = np.zeros((1, 6))
         # Your code starts from here
-        
-        q = q_matrix[0]
 
         # Positions -- dummy values for now
         x_wrist = 200
         y_wrist = 200
         z_wrist = 1
 
-        # Constants
-        d1 = self.d1
-        a2 = self.a2
-        a3 = self.a3
-        d5 = self.d5
-
         # Theta_1
         theta1 = np.arctan2(y_wrist , x_wrist)
         print('Theta_1 = ', theta1, ' rads')
-        q[0] = theta1
+        q[0,0] = theta1
 
         # Theta_3
-        theta3 = -np.pi/2 - np.arccos((x_wrist**2 + y_wrist**2 + (z_wrist - d1**2) - a2**2 - a3**2) / (2*a2*a3))
+        theta3 = -np.pi/2 - np.arccos((x_wrist**2 + y_wrist**2 + (z_wrist - self.d1**2) - self.a2**2 - self.a3**2) / (2*self.a2*self.a3))
         print('Theta_3 = ', theta3, ' rads')
-        q[2] = theta3
+        q[0,2] = theta3
 
         # Theta_2
-        theta2 =  np.pi/2 - np.arctan2((z_wrist - d1) , (np.sqrt(x_wrist**2 + y_wrist**2))) + np.arctan2((a3*np.sin(-np.pi/2 - theta3)) , (a2 + a3*np.cos(-np.pi/2 - theta3))) 
+        theta2 =  np.pi/2 - np.arctan2((z_wrist - self.d1) , (np.sqrt(x_wrist**2 + y_wrist**2))) + np.arctan2((self.a3*np.sin(-np.pi/2 - theta3)) , (self.a2 + self.a3*np.cos(-np.pi/2 - theta3))) 
         print('Theta_2 = ', theta2, ' rads')
-        q[1] = theta2
+        q[0,1] = theta2
 
         print('q before populating every theta: ', q)
 
 
         # Rotation matrix from frame 0 to frame 1
         R_01 = np.zeros((3, 3))
-        R_01[2,1]= np.sin(q[0])
-        R_01[1,2]= -np.cos(q[0])
-        R_01[1,0]= np.sin(q[0])
-        R_01[0,2]= -np.sin(q[0])
-        R_01[0,0]= np.cos(q[0])
+        R_01[2,1]= np.sin(q[0,0])
+        R_01[1,2]= -np.cos(q[0,0])
+        R_01[1,0]= np.sin(q[0,0])
+        R_01[0,2]= -np.sin(q[0,0])
+        R_01[0,0]= np.cos(q[0,0])
 
         # Rotation matrix from frame 1 to frame 2
         R_12 = np.zeros((3, 3))
         R_12[2,2]= 1
-        R_12[1,1]= np.cos(q[1])
-        R_12[1,0]= np.sin(q[1])
-        R_12[0,1]= -np.sin(q[1])
-        R_12[0,0]= np.cos(q[1])
+        R_12[1,1]= np.cos(q[0,1])
+        R_12[1,0]= np.sin(q[0,1])
+        R_12[0,1]= -np.sin(q[0,1])
+        R_12[0,0]= np.cos(q[0,1])
 
         # Rotation matrix from frame 2 to frame 3
         R_23 = np.zeros((3, 3))
         R_23[2,2]= 1
-        R_23[1,1]= np.cos(q[2])
-        R_23[1,0]= np.sin(q[2])
-        R_23[0,1]= -np.sin(q[2])
-        R_23[0,0]= np.cos(q[2])
+        R_23[1,1]= np.cos(q[0,2])
+        R_23[1,0]= np.sin(q[0,2])
+        R_23[0,1]= -np.sin(q[0,2])
+        R_23[0,0]= np.cos(q[0,2])
 
         # Rotation matrix from frame 3 to frame 4
         R_34 = np.zeros((3, 3))
         R_34[2,1] = -1
-        R_34[1,2] = np.cos(q[3])
-        R_34[1,0] = np.sin(q[3])
-        R_34[0,2] = -np.sin(q[3])
-        R_34[0,0] = np.cos(q[3])
+        R_34[1,2] = np.cos(q[0,3])
+        R_34[1,0] = np.sin(q[0,3])
+        R_34[0,2] = -np.sin(q[0,3])
+        R_34[0,0] = np.cos(q[0,3])
 
         # Rotation matrix from frame 4 to frame 5
         R_45 = np.zeros((3, 3))
         R_45[2,2] = 1
-        R_45[1,1] = np.cos(q[4])
-        R_45[1,0] = np.sin(q[4])
-        R_45[0,1] = -np.sin(q[4])
-        R_45[0,0] = np.cos(q[4])
+        R_45[1,1] = np.cos(q[0,4])
+        R_45[1,0] = np.sin(q[0,4])
+        R_45[0,1] = -np.sin(q[0,4])
+        R_45[0,0] = np.cos(q[0,4])
 
         # Rotation from frame 0 to frame 3 (wrist) using post-multiplication of DH
         R_03 = np.matmul(np.matmul(R_01, R_12), R_23)
@@ -135,12 +127,12 @@ class Main():
         # Theta_5
         theta5 = np.arccos(-R_3e_test[2,1])
         print('Theta_5 = ', theta5, ' rads')
-        q[4] = theta5
+        q[0,4] = theta5
         
         # Theta_4
         theta4 = np.arccos(R_3e_test[0,0] / np.cos(theta5))
         print('Theta_4 = ', theta4, ' rads')
-        q[3] = theta3
+        q[0,3] = theta3
 
         # R_3e_check
         print('R_3e from DH = ')
