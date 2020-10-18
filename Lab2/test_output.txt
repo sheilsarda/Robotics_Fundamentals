@@ -1,0 +1,55 @@
+('wrist position: ', array([ 187.325,    0.   ,  222.25 ]))
+('end_effector position: ', array([ 255.325,    0.   ,  222.25 ]))
+('Theta_1 = ', 0.0, ' rads')
+('isPossible: ', True)
+('Theta_3 = ', -0.0, ' rads')
+('Theta_3 = ', -3.1415926535897931, ' rads')
+('Theta_2 = ', 0.0, ' rads')
+('Theta_2 = ', 1.8171600000000001, ' rads')
+('q before populating every theta: ', array([[ 0.        ,  0.        , -0.        ,  0.        ,  0.        ,
+         0.        ],
+       [ 0.        ,  1.81716   , -3.14159265,  0.        ,  0.        ,
+         0.        ]]))
+('R_0e = ', array([[ 0.,  0.,  1.],
+       [ 0., -1.,  0.],
+       [ 1.,  0.,  0.]]))
+('Calculating theta4 and theta5 for row ', 2, ' of ', 2)
+('Theta_4 = ', 0.0, ' rads')
+('Theta_5 = ', 3.1415926535897931, ' rads')
+('R_check', array([[ 0.,  0.,  1.],
+       [ 0., -1.,  0.],
+       [ 1.,  0., -0.]]))
+('Calculating theta4 and theta5 for row ', 0, ' of ', 2)
+('Theta_4 = ', 0.0, ' rads')
+('Theta_5 = ', 3.1415926535897931, ' rads')
+('R_check', array([[ 0.,  0.,  1.],
+       [ 0., -1.,  0.],
+       [ 1.,  0., -0.]]))
+('q after populating every theta: ', array([[ 0.        ,  0.        , -0.        ,  0.        ,  3.14159265,
+         0.        ],
+       [ 0.        ,  1.81716   , -3.14159265,  0.        ,  3.14159265,
+         0.        ]]))
+('Joint limits exceeded: ', [True, True])
+('q after filtering: ', array([], shape=(0, 6), dtype=float64))
+[INFO] [1602207903.554729, 1812.087000]: Waiting for Gazebo...
+[INFO] [1602207903.658175, 1812.107000]: Waiting for Gazebo...
+[INFO] [1602207903.762055, 1812.127000]: Waiting for Gazebo...
+Setup complete
+
+('The joint values are', [-0.281, 1.022, 0.282, 1.7, 1.5, 8.0])
+
+('The joint velocities are', [0.0, 0.0, 0.0, -0.0, -0.0, -22.0])
+Simulation T0e =
+[[  -0.267   -0.151   -0.952  102.405]
+ [  -0.961   -0.03     0.274  -29.505]
+ [  -0.07     0.988   -0.137  -37.614]
+ [   0.       0.       0.       1.   ]]
+Target T0e =
+[[   0.       0.       1.     255.325]
+ [   0.      -1.       0.       0.   ]
+ [   1.       0.       0.     222.25 ]
+ [   0.       0.       0.       1.   ]]
+isPos =
+True
+q =
+[]

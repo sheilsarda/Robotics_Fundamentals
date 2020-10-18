@@ -15,4 +15,4 @@ if it does collide, set current position as start position
 Find the distance of all the line segments added up and divide by 6 (this is the distance increments used to mark positions)
 from start point, measure out the first distance increment with line segments
 mark where the position is and use FK to find joint angles for position only (not orientation)
-input orietntaion at the last point only
+input orientation at the last point only
