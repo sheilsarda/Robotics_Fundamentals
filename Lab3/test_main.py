@@ -89,9 +89,7 @@ if __name__=='__main__':
     # list of feasible points on the line such that
     # feasible line exists between adjacent points
     # in the list
-    points = [startE]
-
-    goalTolerance = np.array([100, 100, 100])
+    points = [list(startE)]
     goalFound = False
     
     # total number of iterations 
@@ -113,8 +111,8 @@ if __name__=='__main__':
         # print(i, newPoint)
 
         if(not obstacleCollision([newPoint],[goalE], obstacles)):
-            points.append(newPoint)
-            points.append(goalE)
+            points.append(list(newPoint))
+            points.append(list(goalE))
             print("New Point", newPoint)
             print("Straight Line to goal feasible")
             goalFound = True
@@ -122,27 +120,8 @@ if __name__=='__main__':
         else:
             coll = obstacleCollision([currentPos],[newPoint], obstacles)
             if not coll:
-                points.append(newPoint)
+                points.append(list(newPoint))
                 currentPos = newPoint
-
-                # if((sum(np.abs(np.array(currentPos) - np.array(goalE))
-                # - goalTolerance) < 0.00001) 
-                # and
-                # not obstacleCollision([newPoint],[goalE], obstacles)):
-                    
-                #     # Check collision from new point to end point
-                #     goalFound = True
-                #     print("Goal inside tolerance and straight line feasible")
-                #     points.append(goalE)
-
-                # i = 0
-                # print(i, newPoint)
 
             i += 1
         print(points)
-    
-        
-    
-
-
-    
