@@ -124,4 +124,6 @@ if __name__=='__main__':
                 currentPos = newPoint
 
             i += 1
-        print(points)
+    print(len(points))
+
+
