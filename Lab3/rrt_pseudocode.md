@@ -30,4 +30,21 @@
             - Joint limits
             - Obstacle detection
         
-    
+    - Pick orientations based on goal orientation 
+      OR 
+      Pick orientation based on obstacle avoidance
+
+## Pseudocode for turning waypoints into `q` array
+
+1. For waypoints, form T0e using XYZ from our while loop and match wrist orientation of the initial point
+1. Solve for thetas using IK
+1. If no feasible orientation, then find nearest feasible orientation
+1. Get joint positions for each of the other joints
+1. Model each link as a line between XYZ positions of the joints
+1. Detect if the link / line collides with any obstacle
+1. If collision, generate a new path from the nearest feasible point
+OR
+generate new path from start position
+1. If no collision on any waypoint in the path, then the robot body does not collide
+
+

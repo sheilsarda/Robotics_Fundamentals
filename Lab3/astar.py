@@ -211,7 +211,7 @@ class OccupancyMap:
         beg_index = [0,1,2,3,4]
         end_index = [1,2,3,4,5]
         joint_vector = self.index_to_metric_negative_corner(ind)
-        joint_pos, foo = self.FK.forward(np.append(joint_vector, [0, 0]))
+        joint_pos, _ = self.FK.forward(np.append(joint_vector, [0, 0]))
         beg_points = joint_pos[beg_index, ::]
         end_points = joint_pos[end_index, ::]
 
