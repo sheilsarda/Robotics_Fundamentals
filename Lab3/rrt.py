@@ -55,8 +55,8 @@ def rrt(map, start, goal):
                         matrix.
     """
 
-    obstacles = map_struct.obstacles
-    boundary = map_struct.boundary
+    obstacles = map.obstacles
+    boundary = map.boundary
 
     # print(obstacles)
     # print(boundary)

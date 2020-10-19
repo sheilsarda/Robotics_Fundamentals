@@ -17,15 +17,15 @@ from rrt import rrt
 
 if __name__=='__main__':
     # Update map location with the location of the target map
-    map_struct = loadmap("maps/map1.txt")
+    map_struct = loadmap("maps/map4.txt")
     start = np.array([0,  0, 0, 0, 0, 0])
     goal = np.array([0, 0, 1.1, 0, 0, 0])
 
     # Run Astar code
-    path = Astar(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
+    # path = Astar(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
 
     # or run rrt code
-    # path = rrt(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
+    path = rrt(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
 
     # start ROS
     lynx = ArmController()
