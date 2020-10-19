@@ -12,11 +12,17 @@ from calculateFK import calculateFK
 
 def obstacleCollision(start, goals, obstacles):
     lineCollision = False
+    # print("================ Obstacle Collision ================")
+    # print("lineCollision is " + str(lineCollision))
+    # print("Start " + str(start))
+    # print("Goal " + str(goals))
+
     for obstacle in obstacles:
         results = detectCollision(start, goals, obstacle)
         lineCollision |= results[0]
-        # print(obstacle, results)
-    
+        print(obstacle, results)
+
+    # print("lineCollision is " + str(lineCollision))
     return lineCollision
 
 def findNN(points, newPoint):
@@ -69,10 +75,13 @@ if __name__=='__main__':
     
     f = calculateFK()
     startPos, _ = f.forward(start)
-    startE = startPos[-1]
+    # startE = startPos[-1]
     
     goalPos, _ = f.forward(goal)
-    goalE = goalPos[-1]
+    # goalE = goalPos[-1]
+
+    startE = [453, 0, -100]
+    goalE = [-345, 50, 290]
     
     print("Start: ", startE)
     print("Goal: ", goalE)
@@ -83,12 +92,11 @@ if __name__=='__main__':
     # check if startE and goalE collides with itself
     startObstacle = obstacleCollision([startE], [startE], obstacles)
     goalObstacle = obstacleCollision([goalE], [goalE], obstacles)
-   
 
     if not lineCollision:
         print ("no collision on straight line")
         # return [start, goal]
-    elif(startObstacle or goalObstacle)::
+    elif(startObstacle or goalObstacle):
         print("Target or Start inside obstacle")
         # return ([])
 
@@ -119,19 +127,19 @@ if __name__=='__main__':
         newPoint = [randX, randY, randZ]
         # print(i, newPoint)
 
-        if(not obstacleCollision([newPoint],[goalE], obstacles)):
+        coll = obstacleCollision([currentPos],[newPoint], obstacles)
+
+        if(not coll and not obstacleCollision([newPoint],[goalE], obstacles)):
             points.append(list(newPoint))
             points.append(list(goalE))
             print("New Point", newPoint)
             print("Straight Line to goal feasible")
             goalFound = True
 
-        else:
-            coll = obstacleCollision([currentPos],[newPoint], obstacles)
-            if not coll:
+        elif not coll:
                 points.append(list(newPoint))
                 currentPos = newPoint
-            i += 1
+        i += 1
     print(len(points))
 
 
