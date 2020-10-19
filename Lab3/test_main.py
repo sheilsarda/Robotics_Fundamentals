@@ -76,12 +76,21 @@ if __name__=='__main__':
     
     print("Start: ", startE)
     print("Goal: ", goalE)
+    print("Obstacles: ", obstacles)
 
+    # Check if straight line path exists between start and goal
     lineCollision = obstacleCollision([startE], [goalE], obstacles)
-    
+    # check if startE and goalE collides with itself
+    startObstacle = obstacleCollision([startE], [startE], obstacles)
+    goalObstacle = obstacleCollision([goalE], [goalE], obstacles)
+   
+
     if not lineCollision:
         print ("no collision on straight line")
         # return [start, goal]
+    elif(startObstacle or goalObstacle)::
+        print("Target or Start inside obstacle")
+        # return ([])
 
     # currentPos
     currentPos = startE
@@ -122,7 +131,6 @@ if __name__=='__main__':
             if not coll:
                 points.append(list(newPoint))
                 currentPos = newPoint
-
             i += 1
     print(len(points))
 
