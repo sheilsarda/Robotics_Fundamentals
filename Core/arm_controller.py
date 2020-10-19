@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import rospy
 from al5d_gazebo.msg import TransformStampedList
 from std_msgs.msg import Float64
@@ -7,8 +9,13 @@ from Queue import Queue
 import numpy as np
 from tf.transformations import quaternion_matrix
 from copy import deepcopy
+from time import sleep
+
 np.set_printoptions(suppress=True)
 
+from std_msgs.msg import Empty, Bool, Header
+from sensor_msgs.msg import JointState
+from gazebo_msgs.msg import ContactsState
 #class managing separate ROS loop
 class ROSInterface:
     def __init__(self, cmd_q, status_q, pose_q, num_joints):
@@ -21,7 +28,17 @@ class ROSInterface:
         self.vel = None
         self.move_ind = 0
         self.move_seq = 0
-        
+        self.vel_target = None
+        self.touch = rospy.Time.from_sec(0)
+
+
+        self.joint_limits = np.array([[-1.4, 1.4],
+                                      [-1.2, 1.4],
+                                      [-1.8, 1.7],
+                                      [-1.9, 1.7],
+                                      [-2, 1.5],
+                                      [-15, 30]]).T
+
     def state_cb(self, state):
         #add state to queue
         #note in original message joints are in alphabetical order
@@ -37,12 +54,28 @@ class ROSInterface:
                              state.velocity[1],
                              state.velocity[6],
                              state.velocity[5],
-                             state.position[2]])
+                             state.velocity[2]])
 
         #clear queue
         while not self.status_q.empty():
             self.status_q.get()
         self.status_q.put((self.pos, self.vel))
+
+    def contact_cb(self, msg):
+
+        collision = False
+        # if any are a true collision, we are in collision. Otherwise not
+        for state in msg.states:
+            if (state.collision1_name == "al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision2_name == "al5d::gripper_rightfinger::gripper_rightfinger_collision"):
+                # don't consider self collisions between gripper jaws
+                pass
+            elif (state.collision2_name == "al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision1_name == "al5d::gripper_rightfinger::gripper_rightfinger_collision"):
+                # order swapped
+                pass
+            else:
+                collision = True
+        if collision:
+            self.touch = rospy.get_rostime()
 
     def pose_cb(self, pose):
         #we know the transforms are already in the order we want
@@ -55,9 +88,9 @@ class ROSInterface:
 
 
             matrix = quaternion_matrix([trans.transform.rotation.x,
-                                           trans.transform.rotation.y,
-                                           trans.transform.rotation.z,
-                                           trans.transform.rotation.w])
+                                        trans.transform.rotation.y,
+                                        trans.transform.rotation.z,
+                                        trans.transform.rotation.w])
             matrix[:3,3] = translation
             transforms.append(matrix)
 
@@ -66,16 +99,23 @@ class ROSInterface:
             self.pose_q.get()
         self.pose_q.put(transforms)
 
+    # handle starting either an interpolating waypoint list or a target velocity
     def start_command(self, state):
         if state[0] == "move":
+            self.vel_target = None
             if self.pos is not None:
                 #interpolate states between current state and goal
                 diff = state[1] - self.pos
                 dist = np.max(np.abs(diff))
-                interp = np.linspace(0, 1, max(np.ceil(100*dist), 2))
+                interp = np.linspace(0, 1, max(np.ceil(80*dist), 2))
                 self.move_seq = self.pos + interp[:,None]*diff[None,:]
                 self.move_ind = 0
+        elif state[0] == "velocity":
+            self.move_seq = 0
+            self.vel_target = deepcopy(state[1])
+            self.pos_target = deepcopy(self.pos)
 
+    # update the waypoint list or integrate the targeted pose due to target velocity
     def update_move(self):
         if self.move_seq is not 0:
             #if we are interpolating, move to next state
@@ -85,9 +125,21 @@ class ROSInterface:
             else:
                 self.move_ind = 0
                 self.move_seq = 0
+        elif self.vel_target is not None:
+            # integrate
+            dt = self.rate.sleep_dur.to_sec()
+            self.pos_target = self.pos_target + dt * np.array(self.vel_target)
+            # keep target within the joint limits
+            self.pos_target[-1] = self.pos_target[-1] * 45.0/0.03
+            # if we go all the way to the edge, it causes jitter, so we don't
+            self.pos_target = np.maximum(self.pos_target, self.joint_limits[0]+.1)
+            self.pos_target = np.minimum(self.pos_target, self.joint_limits[1]-.1)
+            self.pos_target[-1] = self.pos_target[-1] * 0.03 / 45.0
 
+            self.set_state(self.pos_target)
+
+    # actually send the set points over ROS interface
     def set_state(self, state):
-        
         for ind, s in enumerate(state[:-1]):
             msg = Float64(s)
             self.pos_pubs[ind].publish(msg)
@@ -96,37 +148,37 @@ class ROSInterface:
         self.gripper_pubs[1].publish(Float64(state[-1]))
 
     def loop(self):
-        node = rospy.init_node('arm_controller', disable_signals=True)
+        self.node = rospy.init_node('arm_controller', disable_signals=True)
+        self.rate = rospy.Rate(50)
         self.pos_pubs = []
         self.gripper_pubs = []
         for i in range(self.num_joints):
-            pub = rospy.Publisher("/al5d_arm_position_controller"+str(i+1)+"/command", 
+            pub = rospy.Publisher("/al5d_arm_position_controller"+str(i+1)+"/command",
                                   Float64, queue_size=1, latch=True)
             self.pos_pubs.append(pub)
         for i in range(2):
-            pub = rospy.Publisher("/al5d_gripper_controller"+str(i+1)+"/command", 
+            pub = rospy.Publisher("/al5d_gripper_controller"+str(i+1)+"/command",
                                   Float64, queue_size=1, latch=True)
             self.gripper_pubs.append(pub)
 
         state_sub = rospy.Subscriber("/joint_states", JointState, self.state_cb)
         pose_sub = rospy.Subscriber("/joint_poses", TransformStampedList, self.pose_cb)
+        contact_sub = rospy.Subscriber("/collision", ContactsState, self.contact_cb)
 
-        #poll at 100Hz
-        rate = rospy.Rate(50)
+        #poll at 50Hz
 
         while not rospy.is_shutdown():
             try:
                 if not self.status_q.empty() and not self.pose_q.empty():
                     if not self.cmd_q.empty():
-                        cmd = self.cmd_q.get() 
-                        if cmd == "stop": 
-                            break 
-                        print(cmd)
+                        cmd = self.cmd_q.get()
+                        if cmd == "stop":
+                            break
                         self.start_command(cmd)
                     self.update_move()
                 else:
-                    rospy.loginfo("Waiting for Gazebo...")
-                rate.sleep()
+                    pass
+                self.rate.sleep()
             except KeyboardInterrupt:
                 break
 
@@ -139,12 +191,6 @@ class ArmController:
         self.status_q = Queue()
         self.pose_q = Queue()
 
-        self.joint_limits = np.array([[-1.4, 1.4],
-                                      [-1.2, 1.4],
-                                      [-1.8, 1.7],
-                                      [-1.9, 1.7],
-                                      [-2, 1.5],
-                                      [-15, 30]]).T
 
         #ROS runs in a separate thread because it needs to always
         #check the message buffers
@@ -154,33 +200,58 @@ class ArmController:
         self.spin_t.start()
         rospy.loginfo("Ros thread started")
 
+    # set a commanded velocity in joint space
+    def set_vel(self, state):
+        scaled_state = deepcopy(state)
+        scaled_state[-1] = (-scaled_state[-1])/45.*0.03
+        self.cmd_q.put(("velocity", scaled_state))
+
+    # set a commanded joint torque
+    def set_tau(self, state):
+        rospy.logwarn("Torque control not yet implemented")
+
+    # set a commanded position in joint space
+    def set_pos(self, state):
+        self.set_state(state)
+
+    # handle joint limits and scaling for gripper. Note that we left this function
+    # interface intact (despite "state" being a misnomer) for some level of
+    # backwards compatibility
     def set_state(self, state):
         #num joints + gripper
         if len(state) == self.num_joints + 1:
             scaled_state = deepcopy(state)
             #check limits
-            if np.any(scaled_state < self.joint_limits[0]):
-                bad_joints = np.where(scaled_state < self.joint_limits[0])[0]
+            if np.any(scaled_state < self.ros.joint_limits[0]):
+                bad_joints = np.where(scaled_state < self.ros.joint_limits[0])[0]
                 for bad_joint in bad_joints:
-                    rospy.logwarn("Joint " + str(bad_joint) + " is below the limit " + 
-                          str(self.joint_limits[0, bad_joint]))
-                scaled_state = np.maximum(scaled_state, self.joint_limits[0])
-            if np.any(scaled_state > self.joint_limits[1]):
-                bad_joints = np.where(scaled_state > self.joint_limits[1])[0]
+                    rospy.logwarn("Joint " + str(bad_joint) + " is below the limit " +
+                                  str(self.ros.joint_limits[0, bad_joint]))
+                scaled_state = np.maximum(scaled_state, self.ros.joint_limits[0])
+            if np.any(scaled_state > self.ros.joint_limits[1]):
+                bad_joints = np.where(scaled_state > self.ros.joint_limits[1])[0]
                 for bad_joint in bad_joints:
-                    rospy.logwarn("Joint " + str(bad_joint) + " is above the limit " + 
-                          str(self.joint_limits[1, bad_joint]))
-                scaled_state = np.minimum(scaled_state, self.joint_limits[1])
+                    rospy.logwarn("Joint " + str(bad_joint) + " is above the limit " +
+                                  str(self.ros.joint_limits[1, bad_joint]))
+                scaled_state = np.minimum(scaled_state, self.ros.joint_limits[1])
+
+
             scaled_state[-1] = (-scaled_state[-1]+30.)/45.*0.03
             self.cmd_q.put(("move", scaled_state))
+
         else:
             raise Exception("Invalid state command")
 
+    # output: the joint value and its velocity
     def get_state(self):
 
-        # output: the joint value and its velocity
         if not self.status_q.empty():
-            self.cur_state = self.status_q.queue[0]
+            # catching exception which might be due to multithreading
+            try:
+                self.cur_state = self.status_q.queue[0]
+            except IndexError as error:
+                rospy.logwarn(error) # should remove before giving to students
+                # don't update the current state, keep old value
 
 
         scaled_state = []
@@ -191,17 +262,88 @@ class ArmController:
 
         pos = np.around(scaled_state[0], decimals=3).tolist()
         vel = np.around(scaled_state[1], decimals=3).tolist()
-       
+
         return pos, vel
-    
+
+    # output: the T matrix of each joint
     def get_poses(self):
 
-        # output: the T matrix of each joint  
         if not self.pose_q.empty():
             self.cur_pose = self.pose_q.queue[0]
 
         return np.around(self.cur_pose, decimals=3)
-    
+
+    # halt ROS interface so script can terminate
     def stop(self):
         self.cmd_q.put("stop")
         self.spin_t.join()
+
+    # if there has been a collision event in the last interval, assume collided
+    def is_collided(self):
+        since_touch = (rospy.get_rostime() - self.ros.touch).to_sec()
+        return since_touch < .3
+
+
+
+# We run an arm controller node to expose the API to MATLAB over the ROS messaging interface
+
+if __name__ == '__main__':
+    try:
+
+        lynx = ArmController()
+
+        def position(msg):
+            pos = np.array(msg.position)
+            lynx.set_pos(pos)
+
+        def velocity(msg):
+            vel = np.array(msg.velocity)
+            lynx.set_vel(vel)
+
+        def torque(msg):
+            tau = np.array(msg.effort)
+            lynx.set_tau(tau)
+
+        def stop(msg):
+            lynx.stop()
+
+
+        # Wait for ROS
+        rospy.sleep(rospy.Duration.from_sec(3))
+
+        pos_sub = rospy.Subscriber("/arm_interface/position", JointState, position)
+        vel_sub = rospy.Subscriber("/arm_interface/velocity", JointState, velocity)
+        torque_sub = rospy.Subscriber("/arm_interface/effort", JointState, torque)
+        stop_sub = rospy.Subscriber("/arm_interface/stop", Empty, stop)
+
+        collision_pub = rospy.Publisher("/arm_interface/collided", Bool, queue_size=1, latch=True)
+        # stopped_pub = rospy.Publisher("/arm_interface/stopped", Bool, queue_size=1, latch=True)
+        joint_pub = rospy.Publisher("/arm_interface/state", JointState, queue_size=1, latch=True)
+
+        rate = rospy.Rate(100)
+
+        # loop to publish data for MATLAB
+        while not rospy.is_shutdown():
+            try:
+                collision_pub.publish(Bool(lynx.is_collided()))
+
+                # we republish joint data due to reordering and scaling
+                msg = JointState();
+                pos, vel = lynx.get_state()
+                msg.position = pos
+                msg.velocity = vel
+                msg.header = Header()
+                msg.header.stamp = rospy.Time.now()
+                msg.header.frame_id = 'world'
+                msg.name = ["upper_base", "upper_arm", "lower_arm", "wrist", "gripper_base", "end"];
+                joint_pub.publish(msg)
+
+
+                rate.sleep()
+            except KeyboardInterrupt:
+                break
+
+
+    except rospy.ROSInterruptException:
+        lynx.stop()
+        pass
