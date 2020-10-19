@@ -47,4 +47,20 @@ OR
 generate new path from start position
 1. If no collision on any waypoint in the path, then the robot body does not collide
 
+## Pseudocode for planning in C space
 
+1. Why plan in configuration space
+1. How does collision detection work in configuration space
+    -> Given q0-q5 (randomly sampled)
+    -> Detect if valid configuration (within joint limits)
+    -> Plug into FK to get XYZ
+    -> send to detectObstacle function
+
+
+## Pseudocode for isCollided
+
+1. Take in q values to compute joint positions
+1. use collision function to detect if any joint is inside an obstacle
+
+
+## Given an XYZ path, convert use the cubic method to compute 

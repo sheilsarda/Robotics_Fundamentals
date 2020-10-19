@@ -8,18 +8,33 @@ from time import sleep
 from calculateFK import calculateFK
 
 def obstacleCollision(start, goals, obstacles):
+    """
+    start is a pose containing q1 -> qe
+    goals is a pose containing q1 -> qe
+    returns if there is a feasible straight line path
+    """
     lineCollision = False
     # print("================ Obstacle Collision ================")
     # print("lineCollision is " + str(lineCollision))
     # print("Start " + str(start))
     # print("Goal " + str(goals))
 
-    for obstacle in obstacles:
-        results = detectCollision(start, goals, obstacle)
-        lineCollision |= results[0]
-        print(obstacle, results)
+    f = calculateFK()
 
-    # print("lineCollision is " + str(lineCollision))
+    # All the joint XYZ values
+    startPos, _ = f.forward(start)
+
+    # All the joint XYZ value
+    goalPos, _ = f.forward(start)
+
+    # Check if valid path exists between 
+    # startPos[i] and goalPos[i]
+    for obstacle in obstacles:
+        results = detectCollision(startPos, goalPos, obstacle)
+        for result in results:
+            lineCollision |= result
+
+    print("lineCollision is " + str(lineCollision))
     return lineCollision
 
 def findNN(points, newPoint):
@@ -60,6 +75,9 @@ def rrt(map, start, goal):
 
     # print(obstacles)
     # print(boundary)
+
+    # TODO - check if boundaries are inside of joint limits
+    # in which case we need to update joint limits
 
     if (sum(goal - start) < 0.000001 ):
         print("start equals goal")
@@ -106,18 +124,20 @@ def rrt(map, start, goal):
     
     i = 0
 
+    self.lowerLim = np.array([-1.4, -1.2, -1.8, -1.9, -2.0, -15]).reshape((1, 6))    # Lower joint limits in radians (grip in mm (negative closes more firmly))
+    self.upperLim = np.array([1.4, 1.4, 1.7, 1.7, 1.5, 30]).reshape((1, 6))          # Upper joint limits in radians (grip in mm)
+
     while (not goalFound and i < maxIter):
-        # sample a point
-        #random x integer generated from boundary min and max x
-        randX = random.randrange(boundary[0], boundary[3])
-        #random y integer generated from boundary min and max y
-        randY = random.randrange(boundary[1], boundary[4])
-        #random z integer generated from boundary min and max z
-        randZ = random.randrange(boundary[2], boundary[5])
+        # sample a pose
+        #random thetas
+        randQ1 = random.randrange(self.lowerLim[0], self.upperLim[0])
+        randQ2 = random.randrange(self.lowerLim[1], self.upperLim[1])
+        randQ3 = random.randrange(self.lowerLim[2], self.upperLim[2])
+        randQ4 = random.randrange(self.lowerLim[3], self.upperLim[3])
+        randQE = random.randrange(self.lowerLim[4], self.upperLim[4])
         
-        #use current position and new rand x,y,z to see if collisions exists
-        newPoint = [randX, randY, randZ]
-        # print(i, newPoint)
+        newPose = [randQ1, randQ2, randQ3, randQ4, randQE]
+        # print(i, newPose)
 
         coll = obstacleCollision([currentPos],[newPoint], obstacles)
 
