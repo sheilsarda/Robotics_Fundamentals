@@ -107,7 +107,7 @@ def rrt(map, start, goal):
     # 1. compute new dimensions for obstacles by adding
     #    robot volume
 
-    if (sum(goal - start) < 0.000001 ):
+    if (np.array_equal(goal, start)):
         print("start equals goal")
         return [start]
     
