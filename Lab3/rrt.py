@@ -88,13 +88,10 @@ def rrt(map, start, goal):
     
     f = calculateFK()
     startPos, _ = f.forward(start)
-    # startE = startPos[-1]
+    startE = startPos[-1]
     
     goalPos, _ = f.forward(goal)
-    # goalE = goalPos[-1]
-
-    startE = [453, 0, -100]
-    goalE = [-345, 50, 290]
+    goalE = goalPos[-1]
     
     print("Start: ", startE)
     print("Goal: ", goalE)
@@ -160,5 +157,4 @@ def rrt(map, start, goal):
         i += 1
 
     print(len(points))
-
 

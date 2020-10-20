@@ -44,7 +44,7 @@ def detectCollisionOnce(linePt1, linePt2, box):
     # Find slopes vector
     lineSlope = list(np.array(linePt2) - np.array(linePt1))
     lineSlope = [0.001 if num == 0 else num for num in lineSlope]
-
+    
     # %% Begin Collision Detection
 
     # The parameter t = [0,1] traces out from linePt1 to linePt2
