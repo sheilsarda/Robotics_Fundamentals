@@ -109,7 +109,7 @@ def rrt(map, start, goal):
 
     if (sum(goal - start) < 0.000001 ):
         print("start equals goal")
-        # return [start]
+        return [start]
     
     f = calculateFK()
     startPos, _ = f.forward(start)
@@ -139,10 +139,10 @@ def rrt(map, start, goal):
 
     if not lineCollision:
         print ("no collision on straight line")
-        # return [start, goal]
+        return [start, goal]
     elif(startObstacle or goalObstacle):
         print("Target or Start inside obstacle")
-        # return ([])
+        return ([])
 
     # currentPose
     currentPose = start
@@ -188,7 +188,6 @@ def rrt(map, start, goal):
                 goalFound = True
                         
         i += 1
-    # return points
 
     print(len(points))
 
@@ -198,3 +197,8 @@ def rrt(map, start, goal):
             endXYZ = f.forward(points[q_ix])[0][joint]
             print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
             # print("[x]" + str(q) )
+
+
+
+    return points
+
