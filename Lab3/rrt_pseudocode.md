@@ -63,4 +63,7 @@ generate new path from start position
 1. use collision function to detect if any joint is inside an obstacle
 
 
-## Given an XYZ path, convert use the cubic method to compute 
+## Approximate volume of robot
+
+1. Put robot in Zero configuration in Gazebo
+1. Approximate volume using cylinders
