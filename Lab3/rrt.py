@@ -7,6 +7,30 @@ from copy import deepcopy
 from time import sleep
 from calculateFK import calculateFK
 
+def boundaryCollision(point, boundary):
+    outOfBounds = False
+    # print("================ Boundary Collision ================")
+    # print("Point " + str(point))
+
+    f = calculateFK()
+
+    # All the joint XYZ values
+    # Use index 0 for start and goal because they are
+    # nested lists
+    startPos, _ = f.forward(point[0])
+
+    for i in range(len(startPos)):
+
+        # Check if joint i is within the boundary
+        outOfBounds |= (startPos[i][0] < boundary[0])
+        outOfBounds |= (startPos[i][1] < boundary[1])
+        outOfBounds |= (startPos[i][2] < boundary[2])
+        outOfBounds |= (startPos[i][0] > boundary[3])
+        outOfBounds |= (startPos[i][1] > boundary[4])
+        outOfBounds |= (startPos[i][2] > boundary[5])
+    
+    return outOfBounds
+
 def obstacleCollision(start, goal, obstacles):
     """
     start is a pose containing q1 -> qe
@@ -22,19 +46,22 @@ def obstacleCollision(start, goal, obstacles):
     f = calculateFK()
 
     # All the joint XYZ values
-    startPos, _ = f.forward(start)
+    # Use index 0 for start and goal because they are
+    # nested lists
+    startPos, _ = f.forward(start[0])
+    goalPos, _ = f.forward(goal[0]) 
 
-    # All the joint XYZ value
-    goalPos, _ = f.forward(goal)
-
-    # Check if valid path exists between 
-    # startPos[i] and goalPos[i]
+    # print("StartPos " + str(startPos))
+    # print("GoalPos " + str(goalPos))
+    
     for obstacle in obstacles:
-        results = detectCollision(startPos, goalPos, obstacle)
-        for result in results:
-            lineCollision |= result
+        # Iterate through every joint
+        for i in range(len(startPos)):
+            results = detectCollision([startPos[i]], [goalPos[i]], obstacle)
+            for result in results:
+                lineCollision |= result
 
-    print("lineCollision is " + str(lineCollision))
+    # print("lineCollision is " + str(lineCollision))
     return lineCollision
 
 def findNN(points, newPoint):
@@ -77,9 +104,7 @@ def rrt(map, start, goal):
     # print(boundary)
 
     # TODO
-    # 1. check if boundaries are inside of joint limits
-    #    in which case we need to update joint limits
-    # 2. compute new dimensions for obstacles by adding
+    # 1. compute new dimensions for obstacles by adding
     #    robot volume
 
     if (sum(goal - start) < 0.000001 ):
@@ -88,13 +113,21 @@ def rrt(map, start, goal):
     
     f = calculateFK()
     startPos, _ = f.forward(start)
-    startE = startPos[-1]
-    
     goalPos, _ = f.forward(goal)
+
+    # Desired XYZ of end-effector at goal
+    startE = startPos[-1]
     goalE = goalPos[-1]
+
+    # Desired opening width of end-effector at goal
+    goalEWidth = goal[-1]
     
-    print("Start: ", startE)
-    print("Goal: ", goalE)
+    print("Start XYZ: ", startE)
+    print("Goal XYZ: ", goalE)
+
+    print("Start Thetas: ", start)
+    print("Goal Thetas: ", goal)
+
     print("Obstacles: ", obstacles)
 
     # Check if straight line path exists between start and goal
@@ -121,11 +154,11 @@ def rrt(map, start, goal):
     goalFound = False
     
     # total number of iterations 
-    maxIter = 100
-    
+    maxIter = 1000
     i = 0
 
-    # Lower joint limits in radians (grip in mm (negative closes more firmly))
+    # Lower joint limits in radians (grip in mm 
+    # (negative closes more firmly))
     lowerLim = [-1.4, -1.2, -1.8, -1.9, -2.0, -15]
     
     # Upper joint limits in radians (grip in mm)
@@ -133,17 +166,17 @@ def rrt(map, start, goal):
 
     while (not goalFound and i < maxIter):
         # sample a pose
-        #random thetas
-        randQ1 = random.randrange(lowerLim[0], upperLim[0])
-        randQ2 = random.randrange(lowerLim[1], upperLim[1])
-        randQ3 = random.randrange(lowerLim[2], upperLim[2])
-        randQ4 = random.randrange(lowerLim[3], upperLim[3])
-        randQE = random.randrange(lowerLim[4], upperLim[4])
+        randQ1 = random.uniform(lowerLim[0], upperLim[0])
+        randQ2 = random.uniform(lowerLim[1], upperLim[1])
+        randQ3 = random.uniform(lowerLim[2], upperLim[2])
+        randQ4 = random.uniform(lowerLim[3], upperLim[3])
+        randQE = random.uniform(lowerLim[4], upperLim[4])
         
-        newPose = [randQ1, randQ2, randQ3, randQ4, randQE]
-        # print(i, newPose)
+        newPose = [randQ1, randQ2, randQ3, randQ4, randQE, goalEWidth]
+        print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
+        coll |= boundaryCollision([currentPose], boundary)
 
         if not coll:
             points.append(list(newPose))
@@ -155,6 +188,13 @@ def rrt(map, start, goal):
                 goalFound = True
                         
         i += 1
+    # return points
 
     print(len(points))
 
+
+    for q_ix in range(len(points)):
+        for joint in range(6):
+            endXYZ = f.forward(points[q_ix])[0][joint]
+            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+            # print("[x]" + str(q) )

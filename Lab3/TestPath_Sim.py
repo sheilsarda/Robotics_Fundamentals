@@ -18,8 +18,8 @@ from rrt import rrt
 if __name__=='__main__':
     # Update map location with the location of the target map
     map_struct = loadmap("maps/map4.txt")
-    start = np.array([0,  0, 0, 0, 0, 0])
-    goal = np.array([0, 0, 1.1, 0, 0, 0])
+    start = np.array([1.140773925689457, 0.11726018970498742, 1.0621186359361474, 1.56795931069834, -1.9240993391887418, 0.0])
+    goal = np.array([0, 0, 0, 0, 0, 0])
 
     # Run Astar code
     # path = Astar(deepcopy(map_struct), deepcopy(start), deepcopy(goal))

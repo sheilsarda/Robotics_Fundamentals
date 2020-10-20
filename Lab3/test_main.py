@@ -9,6 +9,29 @@ from copy import deepcopy
 from time import sleep
 from calculateFK import calculateFK
 
+def boundaryCollision(point, boundary):
+    outOfBounds = False
+    # print("================ Boundary Collision ================")
+    # print("Point " + str(point))
+
+    f = calculateFK()
+
+    # All the joint XYZ values
+    # Use index 0 for start and goal because they are
+    # nested lists
+    startPos, _ = f.forward(point[0])
+
+    for i in range(len(startPos)):
+
+        # Check if joint i is within the boundary
+        outOfBounds |= (startPos[i][0] < boundary[0])
+        outOfBounds |= (startPos[i][1] < boundary[1])
+        outOfBounds |= (startPos[i][2] < boundary[2])
+        outOfBounds |= (startPos[i][0] > boundary[3])
+        outOfBounds |= (startPos[i][1] > boundary[4])
+        outOfBounds |= (startPos[i][2] > boundary[5])
+    
+    return outOfBounds
 
 def obstacleCollision(start, goal, obstacles):
     """
@@ -17,29 +40,30 @@ def obstacleCollision(start, goal, obstacles):
     returns if there is a feasible straight line path
     """
     lineCollision = False
-    print("================ Obstacle Collision ================")
-    print("lineCollision is " + str(lineCollision))
-    print("Start " + str(start))
-    print("Goal " + str(goal))
+    # print("================ Obstacle Collision ================")
+    # print("lineCollision is " + str(lineCollision))
+    # print("Start " + str(start))
+    # print("Goal " + str(goal))
 
     f = calculateFK()
 
     # All the joint XYZ values
-    startPos = [f.forward(start[i])[0] for i in range(len(start)) ]
-    goalPos = [f.forward(goal[i])[0] for i in range(len(goal)) ]
+    # Use index 0 for start and goal because they are
+    # nested lists
+    startPos, _ = f.forward(start[0])
+    goalPos, _ = f.forward(goal[0]) 
 
-    print("StartPos " + str(startPos))
-    print("GoalPos " + str(goalPos))
-
-    # Check if valid path exists between 
-    # startPos[i] and goalPos[i]
+    # print("StartPos " + str(startPos))
+    # print("GoalPos " + str(goalPos))
+    
     for obstacle in obstacles:
+        # Iterate through every joint
         for i in range(len(startPos)):
-            results = detectCollision(startPos[i], goalPos[i], obstacle)
+            results = detectCollision([startPos[i]], [goalPos[i]], obstacle)
             for result in results:
                 lineCollision |= result
 
-    print("lineCollision is " + str(lineCollision))
+    # print("lineCollision is " + str(lineCollision))
     return lineCollision
 
 def findNN(points, newPoint):
@@ -74,9 +98,9 @@ if __name__=='__main__':
                         matrix..
     """
 
-    map_struct = loadmap("maps/map1.txt")
-    start = np.array([0, 0, 0, 0, 0, 0])
-    goal = np.array([0, 0, 1.1, 0, 0, 0])
+    map_struct = loadmap("maps/map4.txt")
+    start = np.array([1.140773925689457, 0.11726018970498742, 1.0621186359361474, 1.56795931069834, -1.9240993391887418, 0.0])
+    goal = np.array([0, 0, 0, 0, 0, 0])
     # path = Astar(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
     # print(path)
     
@@ -161,6 +185,7 @@ if __name__=='__main__':
         print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
+        coll |= boundaryCollision([currentPose], boundary)
 
         if not coll:
             points.append(list(newPose))
@@ -172,6 +197,15 @@ if __name__=='__main__':
                 goalFound = True
                         
         i += 1
+    # return points
 
     print(len(points))
 
+
+    for q_ix in range(len(points)):
+        for joint in range(6):
+            endXYZ = f.forward(points[q_ix])[0][joint]
+            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+            # print("[x]" + str(q) )
+
+        
