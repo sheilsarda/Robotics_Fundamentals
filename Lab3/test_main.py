@@ -390,15 +390,16 @@ def postProcessing(points, obstacles):
     maxIter = len(points)
     while(i < maxIter):
 
-        randI = random.randrange(0, len(points))
-        randJ = random.uniform(0, len(points))
+        a = random.randrange(0, len(points))
+        b = random.randrange(0, len(points))
 
-        if(randI == randJ): continue
-        coll = obstacleCollision([points[i]], [points[j]], obstacles)
+        if(a == b): continue
+        coll = obstacleCollision([points[a]], [points[b]], obstacles)
 
-        if not coll: deleteElement(processed, randI, randJ)
+        if not coll: deleteElement(processed, a, b)
         i += 1
 
+    print(processed)
     return processed
 
 if __name__=='__main__':
@@ -534,9 +535,9 @@ if __name__=='__main__':
         i += 1
 
     print("Before post-processing: " + str(len(points)))
-    points = postProcessing(points, obstacles)
-    graphTrajectory(points)
-    print("After post-processing: " + str(len(points)))
+    processed = postProcessing(points, obstacles)
+    graphTrajectory(processed)
+    print("After post-processing: " + str(len(processed)))
     
     # for q_ix in range(len(points)):
     #     for joint in range(6):
