@@ -44,7 +44,7 @@ if __name__=='__main__':
 
         while not reached_target:
             # Check if robot is collided then wait
-            collision = collision or lynx.is_collided()
+            collision |= lynx.is_collided()
             sleep(0.1)
 
             # Add Student code here to decide if controller should send next

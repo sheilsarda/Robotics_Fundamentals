@@ -107,16 +107,21 @@ if __name__=='__main__':
     obstacles = map_struct.obstacles
     boundary = map_struct.boundary
 
-    # print(obstacles)
+    bufferRadius = 31.75
+    # subtract bufferRadius from start XYZ
+    # and add to end XYZ
+    for obstacle in obstacles:
+        obstacle[0] -= bufferRadius
+        obstacle[1] -= bufferRadius
+        obstacle[3] += bufferRadius
+        obstacle[4] += bufferRadius
+        obstacle[5] += bufferRadius
+
+
+    print(obstacles)
     # print(boundary)
 
-    # TODO
-    # 1. check if boundaries are inside of joint limits
-    #    in which case we need to update joint limits
-    # 2. compute new dimensions for obstacles by adding
-    #    robot volume
-
-    if (sum(goal - start) < 0.000001 ):
+    if (np.array_equal(goal, start)):
         print("start equals goal")
         # return [start]
     
@@ -197,7 +202,6 @@ if __name__=='__main__':
                 goalFound = True
                         
         i += 1
-    # return points
 
     print(len(points))
 
@@ -207,5 +211,10 @@ if __name__=='__main__':
             endXYZ = f.forward(points[q_ix])[0][joint]
             print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
             # print("[x]" + str(q) )
+
+
+
+    # return points
+
 
         

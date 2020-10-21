@@ -100,12 +100,20 @@ def rrt(map, start, goal):
     obstacles = map.obstacles
     boundary = map.boundary
 
-    # print(obstacles)
-    # print(boundary)
+    bufferRadius = 31.75
+    # subtract bufferRadius from start XYZ
+    # and add to end XYZ
+    for obstacle in obstacles:
+        obstacle[0] -= bufferRadius
+        obstacle[1] -= bufferRadius
+        obstacle[2] -= bufferRadius
+        obstacle[3] += bufferRadius
+        obstacle[4] += bufferRadius
+        obstacle[5] += bufferRadius
 
-    # TODO
-    # 1. compute new dimensions for obstacles by adding
-    #    robot volume
+
+    print(obstacles)
+    # print(boundary)
 
     if (np.array_equal(goal, start)):
         print("start equals goal")
