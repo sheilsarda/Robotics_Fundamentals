@@ -8,6 +8,7 @@ from astar import Astar
 from copy import deepcopy
 from time import sleep
 from calculateFK import calculateFK
+from matplotlib import pyplot as plt
 
 def inverse(T0e):
         """
@@ -357,6 +358,26 @@ def findNN(points, newPoint):
 
     return minI
 
+def graphTrajectory(points):
+
+    # Data for a three-dimensional line
+    zline = []
+    xline = []
+    yline = []
+
+    for q_ix in range(0, len(points), 10):
+        endXYZ = f.forward(points[q_ix])[0][-1]
+        zline.append(endXYZ[2])
+        yline.append(endXYZ[1])
+        xline.append(endXYZ[0])
+
+
+    ax = plt.axes(projection='3d')
+
+    ax.plot3D(xline, yline, zline, 'gray')
+    plt.savefig(ax, format="png")
+
+
 if __name__=='__main__':
     """
     Implement RRT algorithm in this file.
@@ -377,7 +398,8 @@ if __name__=='__main__':
     start = np.array([0, 0, 0, 0, 0, 0])
     
     # goalXYZ = [-275, 0, 375]
-    goalDeg = np.array([0, -15, -111, -11, 0, 0])
+    # goalDeg = np.array([0, -15, -111, -11, 0, 0])
+    goalDeg = np.array([0, -3.5, -111, -11, 0, 0])
     goal = np.radians(goalDeg)
     
     obstacles = map_struct.obstacles
@@ -489,8 +511,7 @@ if __name__=='__main__':
         i += 1
 
     print(len(points))
-
-
+    graphTrajectory(points)
     for q_ix in range(len(points)):
         for joint in range(6):
             endXYZ = f.forward(points[q_ix])[0][joint]
