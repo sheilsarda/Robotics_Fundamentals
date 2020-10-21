@@ -375,8 +375,31 @@ def graphTrajectory(points):
     ax = plt.axes(projection='3d')
 
     ax.plot3D(xline, yline, zline, 'gray')
-    plt.savefig(ax, format="png")
+    plt.show()
 
+def deleteElement(array, left, right) :   
+    j = 0
+    for i in range(len(array)) : 
+        if i <= left or i >= right : 
+            array[j] = array[i] 
+            j += 1
+
+def postProcessing(points, obstacles):
+    processed = deepcopy(points)
+    i = 0
+    maxIter = len(points)
+    while(i < maxIter):
+
+        randI = random.randrange(0, len(points))
+        randJ = random.uniform(0, len(points))
+
+        if(randI == randJ): continue
+        coll = obstacleCollision([points[i]], [points[j]], obstacles)
+
+        if not coll: deleteElement(processed, randI, randJ)
+        i += 1
+
+    return processed
 
 if __name__=='__main__':
     """
@@ -494,7 +517,7 @@ if __name__=='__main__':
         randQE = random.uniform(lowerLim[4], upperLim[4])
         
         newPose = [randQ1, randQ2, randQ3, randQ4, randQE, goalEWidth]
-        print(i, newPose)
+        # print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
@@ -510,12 +533,15 @@ if __name__=='__main__':
                         
         i += 1
 
-    print(len(points))
+    print("Before post-processing: " + str(len(points)))
+    points = postProcessing(points, obstacles)
     graphTrajectory(points)
-    for q_ix in range(len(points)):
-        for joint in range(6):
-            endXYZ = f.forward(points[q_ix])[0][joint]
-            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+    print("After post-processing: " + str(len(points)))
+    
+    # for q_ix in range(len(points)):
+    #     for joint in range(6):
+    #         endXYZ = f.forward(points[q_ix])[0][joint]
+    #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
             # print("[x]" + str(q) )
 
 
