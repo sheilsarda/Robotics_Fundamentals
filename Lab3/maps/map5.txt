@@ -1,0 +1,23 @@
+# example map
+#
+# usage:
+# element x_min y_min z_min x_max y_max z_max
+#
+# you must specify the boundary of your map using the 'boundary' element
+# and can optionally include obstacles using the 'block' element
+#
+# start XYZ : zero pose
+# goal XYZ : -350, 0, 400 and orientation of end-effector
+# is 100% in -X dir and Zero in every other direction
+
+boundary -400.0 -400.0 -200.0 400.0 400.0 500.0
+
+# from map4
+block 200 -300 300 400 300 400
+block 100 -300 -200 200 100 150
+
+# obstacle 3
+block -350 -300 -200 -250 100 300
+
+# obstacle 4
+block -360 -300 470 -40 300 500

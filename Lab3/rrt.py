@@ -112,7 +112,7 @@ def rrt(map, start, goal):
         obstacle[5] += bufferRadius
 
 
-    print(obstacles)
+    # print(obstacles)
     # print(boundary)
 
     if (np.array_equal(goal, start)):
