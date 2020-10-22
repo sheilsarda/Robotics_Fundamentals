@@ -92,6 +92,8 @@ def graphTrajectory(points):
     xline = []
     yline = []
 
+    f = calculateFK()
+
     for q_ix in range(0, len(points), 10):
         endXYZ = f.forward(points[q_ix])[0][-1]
         zline.append(endXYZ[2])
