@@ -85,6 +85,50 @@ def findNN(points, newPoint):
 
     return minI
 
+def graphTrajectory(points):
+
+    # Data for a three-dimensional line
+    zline = []
+    xline = []
+    yline = []
+
+    for q_ix in range(0, len(points), 10):
+        endXYZ = f.forward(points[q_ix])[0][-1]
+        zline.append(endXYZ[2])
+        yline.append(endXYZ[1])
+        xline.append(endXYZ[0])
+
+
+    ax = plt.axes(projection='3d')
+
+    ax.plot3D(xline, yline, zline, 'gray')
+    plt.show()
+
+def deleteElement(array, left, right) :   
+    j = 0
+    for i in range(len(array)) : 
+        if i <= left or i >= right : 
+            array[j] = array[i] 
+            j += 1
+
+def postProcessing(points, obstacles):
+    processed = deepcopy(points)
+    i = 0
+    maxIter = len(points)
+    while(i < maxIter):
+
+        a = random.randrange(0, len(points))
+        b = random.randrange(0, len(points))
+
+        if(a == b): continue
+        coll = obstacleCollision([points[a]], [points[b]], obstacles)
+
+        if not coll: deleteElement(processed, a, b)
+        i += 1
+
+    print(processed)
+    return processed
+
 
 def rrt(map, start, goal):
     """
@@ -104,20 +148,28 @@ def rrt(map, start, goal):
     # subtract bufferRadius from start XYZ
     # and add to end XYZ
     for obstacle in obstacles:
-        obstacle[0] -= bufferRadius
-        obstacle[1] -= bufferRadius
-        obstacle[2] -= bufferRadius
-        obstacle[3] += bufferRadius
-        obstacle[4] += bufferRadius
-        obstacle[5] += bufferRadius
+        obstacle[0] = max(obstacle[0] - bufferRadius, boundary[0])
+        obstacle[1] = max(obstacle[1] - bufferRadius, boundary[1])
+        obstacle[2] = max(obstacle[2] - bufferRadius, boundary[2])
+        obstacle[3] = min(obstacle[3] + bufferRadius, boundary[3])
+        obstacle[4] = min(obstacle[4] + bufferRadius, boundary[4])
+        obstacle[5] = min(obstacle[5] + bufferRadius, boundary[5])
 
 
-    # print(obstacles)
+    # T0e = [ [0, 0, 1, -350],
+    #         [0, -1, 0, 0],
+    #         [-1, 0, 0, 400],
+    #         [0, 0, 0, 1]]
+    # print(inverse(np.array(T0e)))
+    
+
+
+    print(obstacles)
     # print(boundary)
 
     if (np.array_equal(goal, start)):
         print("start equals goal")
-        return [start]
+        # return [start]
     
     f = calculateFK()
     startPos, _ = f.forward(start)
@@ -147,10 +199,10 @@ def rrt(map, start, goal):
 
     if not lineCollision:
         print ("no collision on straight line")
-        return [start, goal]
+        # return [start, goal]
     elif(startObstacle or goalObstacle):
         print("Target or Start inside obstacle")
-        return ([])
+        # return ([])
 
     # currentPose
     currentPose = start
@@ -181,7 +233,7 @@ def rrt(map, start, goal):
         randQE = random.uniform(lowerLim[4], upperLim[4])
         
         newPose = [randQ1, randQ2, randQ3, randQ4, randQE, goalEWidth]
-        print(i, newPose)
+        # print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
@@ -197,16 +249,17 @@ def rrt(map, start, goal):
                         
         i += 1
 
-    print(len(points))
-
-
-    for q_ix in range(len(points)):
-        for joint in range(6):
-            endXYZ = f.forward(points[q_ix])[0][joint]
-            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+    print("Before post-processing: " + str(len(points)))
+    processed = postProcessing(points, obstacles)
+    graphTrajectory(processed)
+    print("After post-processing: " + str(len(processed)))
+    
+    # for q_ix in range(len(points)):
+    #     for joint in range(6):
+    #         endXYZ = f.forward(points[q_ix])[0][joint]
+    #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
             # print("[x]" + str(q) )
 
 
 
     return points
-
