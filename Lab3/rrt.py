@@ -6,7 +6,7 @@ from loadmap import loadmap
 from copy import deepcopy
 from time import sleep
 from calculateFK import calculateFK
-
+from matplotlib import pyplot as plt
 def boundaryCollision(point, boundary):
     outOfBounds = False
     # print("================ Boundary Collision ================")
@@ -235,7 +235,7 @@ def rrt(map, start, goal):
         randQE = random.uniform(lowerLim[4], upperLim[4])
         
         newPose = [randQ1, randQ2, randQ3, randQ4, randQE, goalEWidth]
-        # print(i, newPose)
+        print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
@@ -251,10 +251,10 @@ def rrt(map, start, goal):
                         
         i += 1
 
-    print("Before post-processing: " + str(len(points)))
-    processed = postProcessing(points, obstacles)
-    graphTrajectory(processed)
-    print("After post-processing: " + str(len(processed)))
+    # print("Before post-processing: " + str(len(points)))
+    # processed = postProcessing(points, obstacles)
+    # graphTrajectory(processed)
+    # print("After post-processing: " + str(len(processed)))
     
     # for q_ix in range(len(points)):
     #     for joint in range(6):
@@ -262,6 +262,6 @@ def rrt(map, start, goal):
     #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
             # print("[x]" + str(q) )
 
-
+    print(points)
 
     return points

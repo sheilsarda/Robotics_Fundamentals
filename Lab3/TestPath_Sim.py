@@ -19,18 +19,18 @@ if __name__=='__main__':
     # Update map location with the location of the target map
     # map_struct = loadmap("maps/map4.txt")
 
-    map_struct = loadmap("maps/map5.txt")
+    map_struct = loadmap("maps/map1.txt")
 
 
     start = np.array([0, 0, 0, 0, 0, 0])
     
     # goalXYZ = [-275, 0, 375]
-    goalDeg = np.array([0, -15, -111, -11, 0, 0])
+    # goalDeg = np.array([0, -50, -111, -11, 0, 0])
     # goalDeg = np.array([0, -3.5, -111, -11, 0, 0])
-    goal = np.radians(goalDeg)
+    # goal = np.radians(goalDeg)
 
 
-    # start = np.array([1.140773925689457, 0.11726018970498742, 1.0621186359361474, 1.56795931069834, -1.9240993391887418, 0.0])
+    goal = np.array([1.140773925689457, 0.11726018970498742, 1.0621186359361474, 1.56795931069834, -1.9240993391887418, 0.0])
     # goal = np.array([0, 0, 0, 0, 0, 0])
 
     # Run Astar code
@@ -53,7 +53,7 @@ if __name__=='__main__':
         reached_target = False
 
         # Enter user defined variables here
-
+        count = 0
         while not reached_target:
             # Check if robot is collided then wait
             collision |= lynx.is_collided()
@@ -64,7 +64,10 @@ if __name__=='__main__':
             # loop. You will likely want to use lynx.get_state() to decide when to
             # move to the next target.
 
-            reached_target = True
+            count += 1
+            if count > 70:
+                reached_target = True
+                count = 0
             
             # End of student code
 
