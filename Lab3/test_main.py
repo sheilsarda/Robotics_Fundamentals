@@ -144,7 +144,6 @@ def postProcessing(points, obstacles):
             processed = processed[:len(processed) - (b - a - 1)]
         i += 1
 
-
     # verify collision free path exists
     verificationFlag = True
     verificationFlag &= (points[0] == processed[0])

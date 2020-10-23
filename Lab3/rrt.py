@@ -141,6 +141,19 @@ def postProcessing(points, obstacles):
                     y += 1
             processed = processed[:len(processed) - (b - a - 1)]
         i += 1
+
+    # verify collision free path exists
+    verificationFlag = True
+    verificationFlag &= (points[0] == processed[0])
+    verificationFlag &= (points[-1] == processed[-1])
+    for i in range(len(processed) - 1):
+        if obstacleCollision([processed[i]], [processed[i + 1]], obstacles):
+            verificationFlag &= False
+    
+    if not verificationFlag: 
+        print ("Something is wrong in post-processing")
+        print(processed)
+
     return processed
 
 def rrt(map, start, goal):
@@ -229,9 +242,9 @@ def rrt(map, start, goal):
     if not lineCollision:
         print ("no collision on straight line")
         return [start, goal]
-    # elif(startObstacle or goalObstacle):
-    #     print("Target or Start inside obstacle")
-    #     return ([])
+    elif(startObstacle or goalObstacle):
+        print("Target or Start inside obstacle")
+        return ([])
 
     # currentPose
     currentPose = start
