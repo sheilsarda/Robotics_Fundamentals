@@ -107,13 +107,6 @@ def graphTrajectory(points):
     # ax.plot3D(xline, yline, zline, 'gray')
     # plt.show()
 
-def deleteElement(array, left, right) :
-    j = 0
-    for i in range(len(array)) :
-        if i <= left or i >= right :
-            array[j] = array[i]
-            j += 1
-
 def postProcessing(points, obstacles):
     processed = deepcopy(points)
 

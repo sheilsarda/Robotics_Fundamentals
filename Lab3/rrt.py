@@ -65,27 +65,6 @@ def obstacleCollision(start, goal, obstacles):
     # print("lineCollision is " + str(lineCollision))
     return lineCollision
 
-def findNN(points, newPoint):
-    """
-    Return i such that points[i] is the closest distance
-    from newPoint for all the points in the array
-    """
-
-    minI = -1
-    minDist = 99999
-    for i in range(len(points)):
-        # find distance
-        a = points[i]
-        b = newPoint
-        dist = np.abs(sum([(a[i] - b[i])**2 for i in range(3)])**0.5)
-
-        # update minI
-        if dist < minDist:
-            minI = i
-            minDist = dist
-
-    return minI
-
 def graphTrajectory(points):
 
     # Data for a three-dimensional line
@@ -141,19 +120,6 @@ def postProcessing(points, obstacles):
                     y += 1
             processed = processed[:len(processed) - (b - a - 1)]
         i += 1
-
-    # verify collision free path exists
-    verificationFlag = True
-    verificationFlag &= (points[0] == processed[0])
-    verificationFlag &= (points[-1] == processed[-1])
-    for i in range(len(processed) - 1):
-        if obstacleCollision([processed[i]], [processed[i + 1]], obstacles):
-            verificationFlag &= False
-    
-    if not verificationFlag: 
-        print ("Something is wrong in post-processing")
-        print(processed)
-
     return processed
 
 def rrt(map, start, goal):
@@ -242,9 +208,9 @@ def rrt(map, start, goal):
     if not lineCollision:
         print ("no collision on straight line")
         return [start, goal]
-    elif(startObstacle or goalObstacle):
-        print("Target or Start inside obstacle")
-        return ([])
+    # elif(startObstacle or goalObstacle):
+    #     print("Target or Start inside obstacle")
+    #     return ([])
 
     # currentPose
     currentPose = start
