@@ -141,6 +141,7 @@ def postProcessing(points, obstacles):
                     y += 1
             processed = processed[:len(processed) - (b - a - 1)]
         i += 1
+    return processed
 
 def rrt(map, start, goal):
     """
