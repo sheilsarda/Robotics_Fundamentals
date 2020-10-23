@@ -263,4 +263,4 @@ def rrt(map, start, goal):
     #         endXYZ = f.forward(points[q_ix])[0][joint]
     #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
 
-    # return processed
+    return processed
