@@ -134,7 +134,7 @@ def postProcessing(points, obstacles):
 
         if not coll: 
             efficiency += b - a -1
-            print("Eliminated %i elements"%(b-a - 1))
+            # print("Eliminated %i elements"%(b-a - 1))
 
             y = 0
             for x in range(len(processed)) :
@@ -143,19 +143,19 @@ def postProcessing(points, obstacles):
                     y += 1
             processed = processed[:len(processed) - (b - a - 1)]
         i += 1
-    
+
 
     # verify collision free path exists
     verificationFlag = True
     verificationFlag &= (points[0] == processed[0])
     verificationFlag &= (points[-1] == processed[-1])
     for i in range(len(processed) - 1):
-        verificationFlag &= obstacleCollision([processed[i]], [processed[i + 1]], obstacles) 
+        if obstacleCollision([processed[i]], [processed[i + 1]], obstacles):
+            verificationFlag &= False
     
     if not verificationFlag: 
         print ("Something is wrong in post-processing")
         print(processed)
-
 
     return processed
 

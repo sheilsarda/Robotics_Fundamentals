@@ -114,21 +114,33 @@ def deleteElement(array, left, right) :
 
 def postProcessing(points, obstacles):
     processed = deepcopy(points)
+
+    efficiency = 0
     i = 0
     maxIter = len(points)
     while(i < maxIter):
 
-        a = random.randrange(0, len(points))
-        b = random.randrange(0, len(points))
+        a = random.randrange(1, len(processed) - 1)
+        b = random.randrange(1, len(processed) - 1)
+        
+        # b is always larger than a
+        if b == a: continue
+        if(b < a): a, b = b, a
 
         if(a == b): continue
-        coll = obstacleCollision([points[a]], [points[b]], obstacles)
+        coll = obstacleCollision([processed[a]], [processed[b]], obstacles)
 
-        if not coll: deleteElement(processed, a, b)
+        if not coll: 
+            efficiency += b - a -1
+            # print("Eliminated %i elements"%(b-a - 1))
+
+            y = 0
+            for x in range(len(processed)) :
+                if x <= a or x >= b :
+                    processed[y] = processed[x]
+                    y += 1
+            processed = processed[:len(processed) - (b - a - 1)]
         i += 1
-
-    print(processed)
-    return processed
 
 def rrt(map, start, goal):
     """
@@ -271,10 +283,11 @@ def rrt(map, start, goal):
     graphTrajectory(processed)
     print("After post-processing: " + str(len(processed)))
 
-    for q_ix in range(len(processed)):
-        for joint in range(6):
-            endXYZ = f.forward(points[q_ix])[0][joint]
-            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
-            # print("[x]" + str(q) )
+    # print(processed[-1])
 
-    return points
+    # for q_ix in range(len(processed)):
+    #     for joint in range(6):
+    #         endXYZ = f.forward(points[q_ix])[0][joint]
+    #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+
+    # return processed
