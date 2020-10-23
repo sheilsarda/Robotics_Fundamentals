@@ -122,22 +122,40 @@ def postProcessing(points, obstacles):
     maxIter = len(points)
     while(i < maxIter):
 
-        a = random.randrange(0, len(points))
-        b = random.randrange(0, len(points))
-
+        a = random.randrange(1, len(processed) - 1)
+        b = random.randrange(1, len(processed) - 1)
+        
+        # b is always larger than a
+        if b == a: continue
         if(b < a): a, b = b, a
 
-
         if(a == b): continue
-        coll = obstacleCollision([points[a]], [points[b]], obstacles)
+        coll = obstacleCollision([processed[a]], [processed[b]], obstacles)
 
         if not coll: 
             efficiency += b - a -1
             print("Eliminated %i elements"%(b-a - 1))
-            deleteElement(processed, a, b)
-        
+
+            y = 0
+            for x in range(len(processed)) :
+                if x <= a or x >= b :
+                    processed[y] = processed[x]
+                    y += 1
+            processed = processed[:len(processed) - (b - a - 1)]
         i += 1
     
+
+    # verify collision free path exists
+    verificationFlag = True
+    verificationFlag &= (points[0] == processed[0])
+    verificationFlag &= (points[-1] == processed[-1])
+    for i in range(len(processed) - 1):
+        verificationFlag &= obstacleCollision([processed[i]], [processed[i + 1]], obstacles) 
+    
+    if not verificationFlag: 
+        print ("Something is wrong in post-processing")
+        print(processed)
+
 
     return processed
 
