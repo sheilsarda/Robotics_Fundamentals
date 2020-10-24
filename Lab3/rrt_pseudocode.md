@@ -1,60 +1,25 @@
-## Pseudocode for simple RRT
+## Pseudocode for `rrt(map, start, goal)`
 
-1. if goal point is equal to start point (we reached it)
-1. if line segment from qstart to end doesnt collide (we reached it)
-1. if it does collide, set current position as start position
-    1. while current position not equal to qgoal and we are less than max iterations
-        1. choose random point in space and make a line segment from current  position to that point
-        1. if new line segment collides, break out and start for loop again
-        1. if it reaches goal position (we reached it)
-        1. else store the new coordinate in an array and run loop again with this coordinate as current position
-1. Find the distance of all the line segments added up and divide by 6 (this is the distance increments used to mark positions)
-1. from start point, measure out the first distance increment with line segments
-1. mark where the position is and use FK to find joint angles for position only (not orientation)
-1. input orientation at the last point only
-
-## TODO
-- Check feasibility of orientation of end effector
-    OR 
-  Assume start and end orientations are feasible
-- What are the robot joint positions while the end effector traverses along the path
-
-    - Knowns:
-        - X, Y and Z end-effector waypoints between start and end by following RRT approach
-            detect feasibility for joints
-
-            given end effector xyz + Orientation, we know the positions of the 
-        
-        
-        - q0-q5 waypoints between start and end which might not be feasible
-            - Joint limits
-            - Obstacle detection
-        
-    - Pick orientations based on goal orientation 
-      OR 
-      Pick orientation based on obstacle avoidance
-
-## Pseudocode for turning waypoints into `q` array
-
-1. For waypoints, form T0e using XYZ from our while loop and match wrist orientation of the initial point
-1. Solve for thetas using IK
-1. If no feasible orientation, then find nearest feasible orientation
-1. Get joint positions for each of the other joints
-1. Model each link as a line between XYZ positions of the joints
-1. Detect if the link / line collides with any obstacle
-1. If collision, generate a new path from the nearest feasible point
-OR
-generate new path from start position
-1. If no collision on any waypoint in the path, then the robot body does not collide
+1. if goal pose is equal to start pose, OR if no obstacles between `start` and `goal` 
+    1. return `[start, goal]` 
+1. Set current position as `start` position
+    1. While current pose not equal to `goal` and loop counter is less than max iterations
+        1. Generate random pose using joint limits as the allowed range
+        1. Check if line segment from current pose to randomly generated pose collides
+            1. If collision detected, break out and start for loop again
+        1. If the newly generated point has a collision-free path to the goal pose, append both the random pose and goal pose to the path 
+        1. Else, store the random pose in the path array, set the current pose to the random pose, and continue to the next iteration of the while loop.
+1. Post-process the path to prune the generated RRT.
+1. Return the path.
 
 ## Pseudocode for planning in C space
 
 1. Why plan in configuration space
 1. How does collision detection work in configuration space
-    -> Given q0-q5 (randomly sampled)
-    -> Detect if valid configuration (within joint limits)
-    -> Plug into FK to get XYZ
-    -> send to detectObstacle function
+    1. Given q0-q5 (randomly sampled)
+    1. Detect if valid configuration (within joint limits)
+    1. Plug into FK to get XYZ
+    1. Send to detectObstacle function
 
 
 ## Pseudocode for isCollided
@@ -67,3 +32,5 @@ generate new path from start position
 
 1. Put robot in Zero configuration in Gazebo
 1. Approximate volume using cylinders
+
+

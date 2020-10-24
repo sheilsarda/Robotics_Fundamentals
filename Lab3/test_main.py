@@ -259,6 +259,8 @@ if __name__=='__main__':
     # Upper joint limits in radians (grip in mm)
     upperLim = [1.4, 1.4, 1.7, 1.7, 1.5, 30]
 
+    LERP = 0.05  # Radians
+
     while (not goalFound and i < maxIter):
         # sample a pose
         randQ1 = random.uniform(lowerLim[0], upperLim[0])
@@ -272,6 +274,38 @@ if __name__=='__main__':
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
+
+        # for each theta, calculate a and b such that a < b 
+        # break up the region a, b into X number of points based on granularity
+        # create a new Pose for each step
+        # if collision detected in any segment, reject newPose
+        
+        ranges = []
+        lowerBound = []
+        upperBound = []
+        max = 0
+        for x in range(len(newPose)):
+            a = newPose[x]
+            b = currentPose[x]
+
+            if b < a: a, b = b, a
+            num_points = int((b - a)/LERP)
+            ranges.append(num_points)
+
+            lowerBound.append(a)
+            upperBound.append(b)
+
+            if num_points > max: max = num_points
+
+        checkPose = []
+        if(max > 0):
+            for y in range(max):
+                for z in range(len(currentPose)):
+                    if ranges[z] != 0:
+                        checkPose.append(lowerBound[z] +  (upperBound[z] - lowerBound[z]) / ranges[z] * y )
+            
+            print("Check Pose: " + str(checkPose))
+            coll |= obstacleCollision([checkPose], [checkPose], obstacles)
 
         if not coll:
             points.append(list(newPose))
