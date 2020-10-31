@@ -225,6 +225,8 @@ def rrt(map, start, goal):
     # Upper joint limits in radians (grip in mm)
     upperLim = [1.4, 1.4, 1.7, 1.7, 1.5, 30]
 
+    LERP = 0.05  # Radians
+
     while (not goalFound and i < maxIter):
         # sample a pose
         randQ1 = random.uniform(lowerLim[0], upperLim[0])
@@ -239,7 +241,36 @@ def rrt(map, start, goal):
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
 
+        #get an array that finds the difference between qnew and q would 
+        #divide each number by certain number of beg_points
+        #loop through each new pose that it generates and compare it to the occupancy maps
+        #if the next pose is colliding, stay at current pose and use RRT to find new point and repeat the same thing
+
+        numPoints = 10.0
+        j = 0  
+        prevPose = deepcopy(currentPose)
+        checkPose = deepcopy(currentPose)
+        diffArray = np.array(newPose) - np.array(currentPose)
+
         if not coll:
+
+            while j < numPoints:
+                checkPose = diffArray / numPoints * j + currentPose
+                LERP_check = obstacleCollision([checkPose], [checkPose], obstacles)
+                # print("LERP_check " + str(LERP_check))
+                if(LERP_check): 
+                    print("LERP found collision")
+                    currentPose 
+                    break
+                else:
+                    points.append(list(deepcopy(checkPose)))
+                
+                currentPose = deepcopy(checkPose)
+                prevPose = deepcopy(checkPose)
+
+                coll |= LERP_check
+                j += 1
+
             points.append(list(newPose))
             currentPose = newPose
 
@@ -249,18 +280,19 @@ def rrt(map, start, goal):
                 goalFound = True
         i += 1
         if i==maxIter:
-            print("max iterations reached")
+            print("Max iterations reached")
 
     print("Before post-processing: " + str(len(points)))
-    processed = postProcessing(points, obstacles)
+    processed = points
+    # processed = postProcessing(points, obstacles)
     graphTrajectory(processed)
     print("After post-processing: " + str(len(processed)))
 
     # print(processed[-1])
 
-    # for q_ix in range(len(processed)):
-    #     for joint in range(6):
-    #         endXYZ = f.forward(points[q_ix])[0][joint]
-    #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+    for q_ix in range(len(processed)):
+        for joint in range(6):
+            endXYZ = f.forward(points[q_ix])[0][joint]
+            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
 
     return processed

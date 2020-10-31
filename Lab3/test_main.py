@@ -108,6 +108,10 @@ def graphTrajectory(points):
     # plt.show()
 
 def postProcessing(points, obstacles):
+
+    if(len(points)) < 10:
+        return points
+
     processed = deepcopy(points)
 
     efficiency = 0
@@ -164,17 +168,9 @@ if __name__=='__main__':
     """
 
     map_struct = loadmap("maps/map5.txt")
-    # start = np.array([1.140773925689457, 0.11726018970498742, 1.0621186359361474, 1.56795931069834, -1.9240993391887418, 0.0])
-    # goal = np.array([0, 0, 0, 0, 0, 0])
-    # path = Astar(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
-    # print(path)
 
     start = np.array([0, 0, 0, 0, 0, 0])
-    
-    # goalXYZ = [-275, 0, 375]
-    # goalDeg = np.array([0, -15, -111, -11, 0, 0])
-    goalDeg = np.array([0, -3.5, -111, -11, 0, 0])
-    goal = np.radians(goalDeg)
+    goal = np.array([0.5,-0.5,-np.pi/2,-1,0,0])
     
     obstacles = map_struct.obstacles
     boundary = map_struct.boundary
@@ -270,44 +266,40 @@ if __name__=='__main__':
         randQE = random.uniform(lowerLim[4], upperLim[4])
 
         newPose = [randQ1, randQ2, randQ3, randQ4, randQE, goalEWidth]
-        # print(i, newPose)
+        print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
 
-        # for each theta, calculate a and b such that a < b 
-        # break up the region a, b into X number of points based on granularity
-        # create a new Pose for each step
-        # if collision detected in any segment, reject newPose
-        
-        ranges = []
-        lowerBound = []
-        upperBound = []
-        max = 0
-        for x in range(len(newPose)):
-            a = newPose[x]
-            b = currentPose[x]
+        #get an array that finds the difference between qnew and q would 
+        #divide each number by certain number of beg_points
+        #loop through each new pose that it generates and compare it to the occupancy maps
+        #if the next pose is colliding, stay at current pose and use RRT to find new point and repeat the same thing
 
-            if b < a: a, b = b, a
-            num_points = int((b - a)/LERP)
-            ranges.append(num_points)
-
-            lowerBound.append(a)
-            upperBound.append(b)
-
-            if num_points > max: max = num_points
-
-        checkPose = []
-        if(max > 0):
-            for y in range(max):
-                for z in range(len(currentPose)):
-                    if ranges[z] != 0:
-                        checkPose.append(lowerBound[z] +  (upperBound[z] - lowerBound[z]) / ranges[z] * y )
-            
-            print("Check Pose: " + str(checkPose))
-            coll |= obstacleCollision([checkPose], [checkPose], obstacles)
+        numPoints = 10.0
+        j = 0  
+        prevPose = deepcopy(currentPose)
+        checkPose = deepcopy(currentPose)
+        diffArray = np.array(newPose) - np.array(currentPose)
 
         if not coll:
+
+            while j < numPoints:
+                checkPose = diffArray / numPoints * j + currentPose
+                LERP_check = obstacleCollision([checkPose], [checkPose], obstacles)
+                # print("LERP_check " + str(LERP_check))
+                if(LERP_check): 
+                    print("LERP found collision")
+                    break
+                else:
+                    points.append(list(deepcopy(checkPose)))
+                
+                currentPose = deepcopy(checkPose)
+                prevPose = deepcopy(checkPose)
+
+                coll |= LERP_check
+                j += 1
+
             points.append(list(newPose))
             currentPose = newPose
 
@@ -320,15 +312,16 @@ if __name__=='__main__':
             print("Max iterations reached")
 
     print("Before post-processing: " + str(len(points)))
-    processed = postProcessing(points, obstacles)
+    processed = points
+    # processed = postProcessing(points, obstacles)
     graphTrajectory(processed)
     print("After post-processing: " + str(len(processed)))
 
     # print(processed[-1])
 
-    # for q_ix in range(len(processed)):
-    #     for joint in range(6):
-    #         endXYZ = f.forward(points[q_ix])[0][joint]
-    #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+    for q_ix in range(len(processed)):
+        for joint in range(6):
+            endXYZ = f.forward(points[q_ix])[0][joint]
+            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
 
     # return processed
