@@ -6,6 +6,10 @@ if __name__=='__main__':
     This is the dimension of the Lynx Robot stated as global variable
 
     """
+
+    # Zero pose
+    q = [np.pi/2, 0, 0, 0, 0, 0]
+
     # Lynx Dimensions in mm
     L1 = 76.2    # distance between joint 0 and joint 1
     L2 = 146.05  # distance between joint 1 and joint 2
@@ -67,6 +71,10 @@ if __name__=='__main__':
     J[3:6, 2] = T02[0:3, 2]
     J[3:6, 3] = T03[0:3, 2]
     J[3:6, 4] = T04[0:3, 2]
+
+    print("Jacobian")
+    print(J)
+    print("----------------")
 
 
 
