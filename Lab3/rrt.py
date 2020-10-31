@@ -65,6 +65,27 @@ def obstacleCollision(start, goal, obstacles):
     # print("lineCollision is " + str(lineCollision))
     return lineCollision
 
+def findNN(points, newPoint):
+    """
+    Return i such that points[i] is the closest distance
+    from newPoint for all the points in the array
+    """
+
+    minI = -1
+    minDist = 99999
+    for i in range(len(points)):
+        # find distance
+        a = points[i]
+        b = newPoint
+        dist = np.abs(sum([(a[i] - b[i])**2 for i in range(3)])**0.5)
+
+        # update minI
+        if dist < minDist:
+            minI = i
+            minDist = dist
+
+    return minI
+
 def graphTrajectory(points):
 
     # Data for a three-dimensional line
@@ -84,7 +105,16 @@ def graphTrajectory(points):
     # ax.plot3D(xline, yline, zline, 'gray')
     # plt.show()
 
+def deleteElement(array, left, right) :
+    j = 0
+    for i in range(len(array)) :
+        if i <= left or i >= right :
+            array[j] = array[i]
+            j += 1
+
 def postProcessing(points, obstacles):
+    if len(points)<=5:
+        return points
     processed = deepcopy(points)
 
     efficiency = 0
@@ -94,7 +124,7 @@ def postProcessing(points, obstacles):
 
         a = random.randrange(1, len(processed) - 1)
         b = random.randrange(1, len(processed) - 1)
-        
+
         # b is always larger than a
         if b == a: continue
         if(b < a): a, b = b, a
@@ -102,7 +132,7 @@ def postProcessing(points, obstacles):
         if(a == b): continue
         coll = obstacleCollision([processed[a]], [processed[b]], obstacles)
 
-        if not coll: 
+        if not coll:
             efficiency += b - a -1
             # print("Eliminated %i elements"%(b-a - 1))
 
@@ -113,6 +143,19 @@ def postProcessing(points, obstacles):
                     y += 1
             processed = processed[:len(processed) - (b - a - 1)]
         i += 1
+
+    # verify collision free path exists
+    verificationFlag = True
+    verificationFlag &= (points[0] == processed[0])
+    verificationFlag &= (points[-1] == processed[-1])
+    for i in range(len(processed) - 1):
+        if obstacleCollision([processed[i]], [processed[i + 1]], obstacles):
+            verificationFlag &= False
+
+    if not verificationFlag:
+        print ("Something is wrong in post-processing")
+        print(processed)
+
     return processed
 
 def rrt(map, start, goal):
@@ -201,9 +244,9 @@ def rrt(map, start, goal):
     if not lineCollision:
         print ("no collision on straight line")
         return [start, goal]
-    # elif(startObstacle or goalObstacle):
-    #     print("Target or Start inside obstacle")
-    #     return ([])
+    elif(startObstacle or goalObstacle):
+        print("Target or Start inside obstacle")
+        return ([])
 
     # currentPose
     currentPose = start
@@ -225,8 +268,6 @@ def rrt(map, start, goal):
     # Upper joint limits in radians (grip in mm)
     upperLim = [1.4, 1.4, 1.7, 1.7, 1.5, 30]
 
-    LERP = 0.05  # Radians
-
     while (not goalFound and i < maxIter):
         # sample a pose
         randQ1 = random.uniform(lowerLim[0], upperLim[0])
@@ -236,63 +277,33 @@ def rrt(map, start, goal):
         randQE = random.uniform(lowerLim[4], upperLim[4])
 
         newPose = [randQ1, randQ2, randQ3, randQ4, randQE, goalEWidth]
-        print(i, newPose)
+        #print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
 
-        #get an array that finds the difference between qnew and q would 
-        #divide each number by certain number of beg_points
-        #loop through each new pose that it generates and compare it to the occupancy maps
-        #if the next pose is colliding, stay at current pose and use RRT to find new point and repeat the same thing
-
-        numPoints = 10.0
-        j = 0  
-        prevPose = deepcopy(currentPose)
-        checkPose = deepcopy(currentPose)
-        diffArray = np.array(newPose) - np.array(currentPose)
-
         if not coll:
-
-            while j < numPoints:
-                checkPose = diffArray / numPoints * j + currentPose
-                LERP_check = obstacleCollision([checkPose], [checkPose], obstacles)
-                # print("LERP_check " + str(LERP_check))
-                if(LERP_check): 
-                    print("LERP found collision")
-                    currentPose 
-                    break
-                else:
-                    points.append(list(deepcopy(checkPose)))
-                
-                currentPose = deepcopy(checkPose)
-                prevPose = deepcopy(checkPose)
-
-                coll |= LERP_check
-                j += 1
-
             points.append(list(newPose))
             currentPose = newPose
-
+            i=0
             if (not obstacleCollision([newPose],[goal], obstacles)):
                 points.append(list(goal))
                 print("Straight Line to goal feasible")
                 goalFound = True
         i += 1
         if i==maxIter:
-            print("Max iterations reached")
+            print("max iterations reached")
 
     print("Before post-processing: " + str(len(points)))
-    processed = points
-    # processed = postProcessing(points, obstacles)
+    processed = postProcessing(points, obstacles)
     graphTrajectory(processed)
     print("After post-processing: " + str(len(processed)))
 
     # print(processed[-1])
 
-    for q_ix in range(len(processed)):
-        for joint in range(6):
-            endXYZ = f.forward(points[q_ix])[0][joint]
-            print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
+    # for q_ix in range(len(processed)):
+    #     for joint in range(6):
+    #         endXYZ = f.forward(points[q_ix])[0][joint]
+    #         print("[%i][%i]"%(q_ix, joint) + str(endXYZ) )
 
     return processed

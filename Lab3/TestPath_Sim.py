@@ -17,24 +17,18 @@ from rrt import rrt
 
 if __name__=='__main__':
     # Update map location with the location of the target map
-    # map_struct = loadmap("maps/map4.txt")
+    map_struct = loadmap("maps/map4.txt")
+    start = np.array([0,0,0,0,0,0])
+    goal = np.array([0,0,-np.pi/2,0,0,0])
+    #[0, 0, 0, 0, 0, 0]
+    #Map 3: [1.4,0,1,0,0,0]
+    #Map 1,2: [1,0,1.05,0,0,0], [-1.2,0.3,0.8,-0.3,0,0]
+    #Map 5:[0.5,-0.5,-np.pi/2,-1,0,0.0]]
+    #Map 4: [0,0,-np.pi/2,0,0,0]
 
-    map_struct = loadmap("maps/map1.txt")
-
-
-    start = np.array([0, 0, 0, 0, 0, 0])
-    
-    # goalXYZ = [-275, 0, 375]
-    # goalDeg = np.array([0, -50, -111, -11, 0, 0])
-    # goalDeg = np.array([0, -3.5, -111, -11, 0, 0])
-    # goal = np.radians(goalDeg)
-
-
-    goal = np.array([1.140773925689457, 0.11726018970498742, 1.0621186359361474, 1.56795931069834, -1.9240993391887418, 0.0])
-    # goal = np.array([0, 0, 0, 0, 0, 0])
 
     # Run Astar code
-    # path = Astar(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
+    #path = Astar(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
 
     # or run rrt code
     path = rrt(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
@@ -43,12 +37,12 @@ if __name__=='__main__':
     lynx = ArmController()
     sleep(1) # wait for setup
     collision = False
-
     # iterate over target waypoints
+    pq=[0,0,0,0,0,0]
     for q in path:
         print("Goal:")
         print(q)
-
+        pq=deepcopy(q)
         lynx.set_pos(q)
         reached_target = False
 
@@ -56,20 +50,38 @@ if __name__=='__main__':
         count = 0
         while not reached_target:
             # Check if robot is collided then wait
-            collision |= lynx.is_collided()
+            collision = collision or lynx.is_collided()
             sleep(0.1)
+            flag=False
+            while flag==False and collision==False:
+                pos, vel = lynx.get_state()
+                #lynx.set_pos(q)
+                A=np.abs(np.array(pos)-np.array(pq))
+                # if i>100:
+                #     lynx.set_pos(q)
+                #     sleep(2)
+                print("Abs(current pos-desired)")
+                print(A)
+                B=np.array([0.01,0.01,0.01,0.01,0.01,0.001])
+                for i in range (len(A)-1):
+                    if A[i]>=B[i]:
+                        flag=False
+                        break
+                    else:
+                        flag = True
 
+            #np.abs(np.array(lynx.get_state())-np.array(pq))>np.array([0.0001,0.0001,0.0001,0.0001,0.0001,0.0001]):
+                #lynx.get_state(
             # Add Student code here to decide if controller should send next
             # target or continue to wait. Do NOT add additional sleeps to control
             # loop. You will likely want to use lynx.get_state() to decide when to
             # move to the next target.
+            # count = count + 1
+            # if count > 140:
+            reached_target = True
+            #     count = 0
 
-            count += 1
-            if count > 70:
-                reached_target = True
-                count = 0
-            
-            # End of student code
+            # End of student cod
 
         print("Current Configuration:")
         pos, vel = lynx.get_state()
