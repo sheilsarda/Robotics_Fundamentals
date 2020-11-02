@@ -2,8 +2,8 @@ import numpy as np
 from calculateFK import calculateFK
 
 # inputs
-q=[np.pi/4,0,0,0,0,0]
-qdot=[2,0,0,0,0,0]
+q=[0,np.pi/4,0,0,0,0]
+qdot=[0,2,0,0,0,0]
 z0=np.array([0,0,1])
 
 # z matrix calculated for joints 1,2 and 3 at once
@@ -30,9 +30,9 @@ for i in range(1,6):
         Jr=np.cross(z4e,Jo)
         
     # jacobian matrix being filled
-    J[0,r-1]=Jr[0]
-    J[1,r-1]=Jr[1]
-    J[2,r-1]=Jr[2]
+    J[0, i-1]=Jr[0]
+    J[1, i-1]=Jr[1]
+    J[2, i-1]=Jr[2]
 
 print("Jacobian")
 print(J)

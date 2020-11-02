@@ -8,7 +8,8 @@ if __name__=='__main__':
     """
 
     # Zero pose
-    q = [np.pi/2, 0, 0, 0, 0, 0]
+    q=[0,np.pi/4,0,0,0,0]
+    qdot=[0,2,0,0,0]
 
     # Lynx Dimensions in mm
     L1 = 76.2    # distance between joint 0 and joint 1
@@ -74,6 +75,7 @@ if __name__=='__main__':
 
     print("Jacobian")
     print(J)
+    print(np.matmul(J, qdot))
     print("----------------")
 
 
