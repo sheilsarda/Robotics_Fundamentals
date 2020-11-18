@@ -11,3 +11,15 @@ def potentialFieldPath(map, qStart, qGoal):
                         the path. The first row is start and the last row is goal. If no path is found, PATH is a 0x6
                         matrix.
     """
+    path = []
+    qNext, isDone = potentialFieldStep(qStart, map, qGoal)
+    path.append(qNext)
+
+    isDoneArray = []
+
+    while isDone == False:
+        qCurr = path[-1]
+        qCurr, isDone = potentialFieldStep(qCurr, map, qGoal)
+        isDoneArray.append(isDone)
+        path.append(qCurr)
+    return path
