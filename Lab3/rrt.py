@@ -1,12 +1,13 @@
 import numpy as np
 import random
+from copy import deepcopy
+from time import sleep
+from matplotlib import pyplot as plt
+
 from calculateFK import calculateFK
 from detectCollision import detectCollision
 from loadmap import loadmap
-from copy import deepcopy
-from time import sleep
 from calculateFK import calculateFK
-from matplotlib import pyplot as plt
 
 def boundaryCollision(point, boundary):
     outOfBounds = False
