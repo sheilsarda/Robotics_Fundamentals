@@ -7,4 +7,3 @@
 # and can optionally include obstacles using the 'block' element
 
 boundary -400.0 -400.0 -200.0 400.0 400.0 500.0
-

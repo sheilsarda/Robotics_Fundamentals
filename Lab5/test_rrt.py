@@ -1,13 +1,23 @@
 import numpy as np
-from potentialFieldStep import potentialFieldStep
 from copy import deepcopy
 import sys
 import random
 from sys import path
+from calculateFK import calculateFK
+from copy import deepcopy
+from time import sleep
+import numpy as np
+import sys
+from random import random as rand
+from loadmap import loadmap
+
+
+import random
+from sys import path
 from os import getcwd
 from calculateFK import calculateFK
-
-def potentialFieldSegment(map, qStart, qGoal):
+from potentialFieldStep import potentialFieldStep
+def potentialFieldPath(map, qStart, qGoal):
     """
     Implement RRT algorithm in this file.
     :param map:         the map struct
@@ -68,35 +78,6 @@ def potentialFieldSegment(map, qStart, qGoal):
         if f>=500 and (isDone == False):
             print("RRT was not able to reach the goal in numPoints")
             return path
-
-    return path
-
-def potentialFieldPath(map, qStart, qGoal):
-    """
-    Implement RRT algorithm in this file.
-    :param map:         the map struct
-    :param qStart:       start pose of the robot (1x6).
-    :param qGoal:        goal pose of the robot (1x6).
-    :return:            returns an Nx6 matrix, where each row consists of the configuration of the Lynx at a point on
-                        the path. The first row is start and the last row is goal. If no path is found, PATH is a 0x6
-                        matrix.
-    """
-    #need to define these variables
-
-    path1 = potentialFieldSegment(map, qStart, qGoal)
-    path2 = rrt(map, path1[-1], 5)
-    path3 = potentialFieldSegment(map, path2[-1], qGoal)
-
-    print("path1 " + str(path1))
-    print("path2 " + str(path2))
-    print("path3 " + str(path3))
-
-    completePath = path1
-    # completePath.append(path1)
-    completePath.append(path2)
-    completePath.append(path3)
-    # print(np.array(completePath))
-    path = np.array(completePath)
 
     return path
 
@@ -364,3 +345,25 @@ def detectCollisionOnce(linePt1, linePt2, box):
     isCollided = np.logical_and(isCollided, np.logical_not(np.logical_or((0 > tmax), (1 < tmin))))
     isCollided = isCollided.reshape((isCollided.shape[0],1))
     return isCollided[0,0]
+
+
+if __name__=='__main__':
+    # Update map location with the location of the target map
+    map_struct = loadmap("maps/map1.txt")
+
+    #start = np.array([ 1.2,  1.57079633,  0.2       ,  0.        ,  0.        ,  0.        ])
+    start = np.array([0,  0, 0, 0, 0, 0])
+    goal = np.array([0, 0, 1.4, 0, 0, 0])
+    path1 = potentialFieldPath(map_struct, start, goal)
+    path2 = rrt(map_struct, path1[-1], 5)
+    path3 = potentialFieldPath(map_struct, path2[-1], goal)
+
+    print("path1 " + str(path1))
+    print("path2 " + str(path2))
+    print("path3 " + str(path3))
+
+    completePath = []
+    completePath.append(path1)
+    completePath.append(path2)
+    completePath.append(path3)
+    print(np.array(completePath))
