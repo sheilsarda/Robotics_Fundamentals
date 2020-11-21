@@ -5,7 +5,7 @@ from distPointToBox import distPointToBox
 from calcJacobian import calcJacobian
 import math
 
-def potentialFieldStep(qCurr, map, qGoal):
+def potentialFieldStep(qCurr, map, qGoal, params):
     """
     This function plans a path through the map using a potential field planner
     :param qCurr:       current pose of the robot (1x6).
@@ -18,10 +18,11 @@ def potentialFieldStep(qCurr, map, qGoal):
     """
 
     #constants to control
-    zeta=2
-    eta=4
-    rho0=3
-    alpha=0.015
+    eta = params[0] 
+    zeta = params[1] 
+    rho0 = params[2]
+    alpha = params[3] 
+
     delnan=False
 
     #intializing vectors
@@ -34,9 +35,6 @@ def potentialFieldStep(qCurr, map, qGoal):
     R=calculateFK()
     Jp,T0e=R.forward(qCurr)
     Jpg,T0eg=R.forward(qGoal)
-    #print("current position:",Jp[3])
-    #print("goal position:",Jpg[3])
-    #print("distance away:\n",Jp-Jpg)
 
     rho = []
     unit=[]
@@ -52,11 +50,11 @@ def potentialFieldStep(qCurr, map, qGoal):
             # distance between joint and current obstacle
             drho=unit_i[j]
             # Add current obstacle's repulsive force to accumulated repulsive force on joint
-            Frep[i] += eta*(1/rho[j][i] - 1/rho0)*(1/rho[j][i]**2)*drho
+            if(rho[j][i] <= rho0):
+                Frep[i] += eta*(1/rho[j][i] - 1/rho0)*(1/rho[j][i]**2)*drho
 
         Fatt[i] = -zeta*(Jp[i] - Jpg[i])
         Fnet[i] = Fatt[i] + Frep[i]
-    #print("Fnet:",Fnet)
 
     #USING JACOBIAN:
     Jac1=np.zeros(3).reshape((3,1))
@@ -64,33 +62,15 @@ def potentialFieldStep(qCurr, map, qGoal):
     Jac=np.hstack((Jac,Jac1))
     tori = np.matmul(Jac.T,Fnet.T)
     tor=np.sum(tori,axis=1)
-    #print("tor:",tor)
     unit_tor=(tor)/np.linalg.norm(tor)
-    #unit_tor=np.nan_to_num(unit_tor,False,0)
+    
     for l in range(0,6):
         if np.isnan(tor[l]):
             delnan=True
-    #unit_tor=np.append(unit_tor,[0])
+    
     qNext = np.around(qCurr+alpha*(unit_tor),4)
 
-    #Updating isDone
-#     done=0
-#     for r in range(0,3):
-# #         print(abs(qNext[r]-qGoal[r]))
-#         if abs(qNext[r]-qGoal[r])<0.05:
-# #             print("joint value")
-#             done+=1
-#     print(done)
-
-#     if done==3:
-#         isDone=True
-#     else:
-#         isDone=False
-# Lower joint limits in radians (grip in mm
-# (negative closes more firmly))
     lowerLim = [-1.4, -1.2, -1.8, -1.9, -2.0, -15]
-
-    # Upper joint limits in radians (grip in mm)
     upperLim = [1.4, 1.4, 1.7, 1.7, 1.5, 30]
 
     qFiltered = deepcopy(qNext)

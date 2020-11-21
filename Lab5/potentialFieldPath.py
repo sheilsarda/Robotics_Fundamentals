@@ -6,8 +6,9 @@ import random
 from sys import path
 from os import getcwd
 from calculateFK import calculateFK
+from matplotlib import pyplot as plt
 
-def potentialFieldSegment(map, qStart, qGoal):
+def potentialFieldSegment(map, qStart, qGoal, params):
     """
     Implement RRT algorithm in this file.
     :param map:         the map struct
@@ -17,59 +18,76 @@ def potentialFieldSegment(map, qStart, qGoal):
                         the path. The first row is start and the last row is goal. If no path is found, PATH is a 0x6
                         matrix.
     """
-    #need to define these variables
-
     thresh = 0.04
+    rrt_index = -1
 
-    ipath=[]
-    path=[]
-    isDoneArray = []
-    qNext,delnan=potentialFieldStep(qStart,map,qGoal)
+    ipath, path, isDoneArray = [], [], []
+    qNext, delnan = potentialFieldStep(qStart,map,qGoal, params)
+
+    # Joint 5 and 6 are not affected by potential fields
     qNext[4]=qGoal[4]
     qNext[5]=qGoal[5]
+
     path.append(qNext)
     ipath.append(qNext)
-    #isDoneArray.append(isDone)
-    print("1st qCurr:",qNext)
+    
     f=0
     isDone=False
+    rrt_count = 0
+    
     while (isDone==False):
         f+=1
         qCurr=ipath[-1]
-        qNext,delnan=potentialFieldStep(qCurr,map,qGoal)
+        qNext,delnan=potentialFieldStep(qCurr,map,qGoal, params)
+        qNext[4] = qGoal[4]
+        qNext[5] = qGoal[5]
         ipath.append(qNext)
-        if delnan==True:
-            del ipath[-1]
-        done=0
-        ind=0
+
+        if(delnan==True):
+            del(ipath[-1])
+  
+        toAppend = ((ipath[-1] + ipath[-2])/2)
+        if(np.abs(np.sum(toAppend - path[-1])) > 0.005):
+            path.append(toAppend)
 
         if(f%1000==0):
             print("iteration #:",f)
-
-        if (len(ipath)%100)==0:
-            path.append(qNext)
-            if f>=1000:
-                #IS DONE CHECK
-                for r in range(0,3):
-                    if abs(qNext[r]-path[-5][r])<thresh:
-                        done+=1
-
-        #If isdone is true, We will check whether it reached its goal:
-        if done==3:
-            isDone=True
+        
         g=0
         for r in range(0,3):
             if abs(qGoal[r]-path[-1][r])<thresh:
                 g+=1
         if g==3:
             print("goal reached")
+            path.append(qGoal)
             isDone = True
 
-        if f>=500 and (isDone == False):
-            print("RRT was not able to reach the goal in numPoints")
-            return path
+        if f>=100 and (isDone == False):
+            if(rrt_count > 99):
+                print("RRT was not able to reach the goal in numPoints")
+                print(path[-1])
+                return path
+                return []
+            
+            if(rrt_index != -1):
+                path = path[:rrt_index]
+
+            rrt_index = len(path)
+
+            print("RRT point appended at index " + str(len(path)))
+            rrt_path = rrt(map, path[-1], 1)
+            if(len(rrt_path) > 0): 
+                rrt_path = rrt_path[0]
+            else:
+                return []
+    
+            path.append(rrt_path)
+            ipath.append(rrt_path)
+            f = 0
+            rrt_count += 1
 
     return path
+
 
 def potentialFieldPath(map, qStart, qGoal):
     """
@@ -81,30 +99,49 @@ def potentialFieldPath(map, qStart, qGoal):
                         the path. The first row is start and the last row is goal. If no path is found, PATH is a 0x6
                         matrix.
     """
-    #need to define these variables
 
-    path1 = potentialFieldSegment(map, qStart, qGoal)
-    path2 = rrt(map, path1[-1], 5)
-    path3 = potentialFieldSegment(map, path2[-1], qGoal)
+    params[0] =10e5
+    params[1] =10
+    params[2] =100
+    params[3] =0.1
 
-    print("path1 " + str(path1))
-    print("path2 " + str(path2))
-    print("path3 " + str(path3))
+    #eta = params[0] 
+    #zeta = params[1] 
+    #rho0 = params[2] 
+    #alpha = params[3] 
 
-    completePath = path1
-    # completePath.append(path1)
-    completePath.append(path2)
-    completePath.append(path3)
-    # print(np.array(completePath))
-    path = np.array(completePath)
+    path1 = potentialFieldSegment(map, qStart, qGoal, params)
+    print(path1)
+    return path1
 
-    return path
+
+    # Linear search through parameter space
+    eta_search = np.linspace(10e3, 10e8, 50)
+    rho_search = np.linspace(10, 100,50)
+    path_lens = []
+    param_tried = []
+
+    #for eta in eta_search:
+    #    params[0] = eta
+    #    param_tried.append(eta)
+    #    path1 = potentialFieldSegment(map, qStart, qGoal, params)
+    #    path_lens.append(len(path1))
+
+
+    #for rho0 in rho_search:
+    #    params[2] = rho0
+    #    param_tried.append(rho0)
+    #    path1 = potentialFieldSegment(map, qStart, qGoal, params)
+    #    path_lens.append(len(path1))
+
+    #print(zip(param_tried, path_lens))
+
+    #plt.scatter(param_tried, path_lens)
+    #plt.show()
+
 
 def boundaryCollision(point, boundary):
     outOfBounds = False
-    # print("================ Boundary Collision ================")
-    # print("Point " + str(point))
-
     f = calculateFK()
 
     # All the joint XYZ values
@@ -131,11 +168,6 @@ def obstacleCollision(start, goal, obstacles):
     returns if there is a feasible straight line path
     """
     lineCollision = False
-    # print("================ Obstacle Collision ================")
-    # print("lineCollision is " + str(lineCollision))
-    # print("Start " + str(start))
-    # print("Goal " + str(goal))
-
     f = calculateFK()
 
     # All the joint XYZ values
@@ -144,9 +176,6 @@ def obstacleCollision(start, goal, obstacles):
     startPos, _ = f.forward(start[0])
     goalPos, _ = f.forward(goal[0])
 
-    # print("StartPos " + str(startPos))
-    # print("GoalPos " + str(goalPos))
-
     for obstacle in obstacles:
         # Iterate through every joint
         for i in range(len(startPos)):
@@ -154,7 +183,6 @@ def obstacleCollision(start, goal, obstacles):
             for result in results:
                 lineCollision |= result
 
-    # print("lineCollision is " + str(lineCollision))
     return lineCollision
 
 def postProcessing(points, obstacles):
@@ -179,7 +207,6 @@ def postProcessing(points, obstacles):
 
         if not coll:
             efficiency += b - a -1
-            # print("Eliminated %i elements"%(b-a - 1))
 
             y = 0
             for x in range(len(processed)) :
@@ -208,7 +235,9 @@ def rrt(map, start, numPoints):
     base1 = np.array([[-30,-30,0.5,-0.1,-0.1,80]])
     base2 = np.array([[0.1,0.1,0.1,30,30,80]])
     boundary = deepcopy(map.boundary)
-    bufferRadius = 40
+    
+    # tunable parameter related to rho0
+    bufferRadius = 0
 
     for obstacle in obstacles:
         obstacle[0] = max(obstacle[0] - bufferRadius, boundary[0])
@@ -234,8 +263,8 @@ def rrt(map, start, numPoints):
         obstacles=np.append(obstacles,base2,axis=0)
 
     # in the list
-    points = [list(start)]
-    maxIter = numPoints
+    points = []
+    maxIter = 10
     i = 0
 
     # Lower joint limits in radians (grip in mm
@@ -247,8 +276,6 @@ def rrt(map, start, numPoints):
 
     currentPose = start
 
-    print("(1) Above RRT While")
-
     while (i < maxIter):
         # sample a pose
         randQ1 = random.uniform(lowerLim[0], upperLim[0])
@@ -257,10 +284,7 @@ def rrt(map, start, numPoints):
         randQ4 = random.uniform(lowerLim[3], upperLim[3])
         randQE = random.uniform(lowerLim[4], upperLim[4])
 
-        print("(2.1) Generated RRT point")
-
         newPose = [randQ1, randQ2, randQ3, randQ4, randQE, 0]
-        #print(i, newPose)
 
         coll = obstacleCollision([currentPose],[newPose], obstacles)
         coll |= boundaryCollision([currentPose], boundary)
@@ -269,8 +293,7 @@ def rrt(map, start, numPoints):
             points.append(list(newPose))
             currentPose = newPose
             i += 1
-        if i==maxIter:
-            print("max iterations reached")
+        if i==numPoints:
             break
 
     return points
@@ -310,7 +333,7 @@ def detectCollisionOnce(linePt1, linePt2, box):
     lineSlope = linePt2 - linePt1
     lineSlope = [0.001 if num == 0 else num for num in lineSlope]
 
-    # %% Begin Collision Detection
+    # Begin Collision Detection
 
     # The parameter t = [0,1] traces out from linePt1 to linePt2
 

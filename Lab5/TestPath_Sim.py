@@ -16,9 +16,11 @@ from potentialFieldPath import potentialFieldPath
 
 if __name__=='__main__':
     # Update map location with the location of the target map
-    map_struct = loadmap("maps/map1.txt")
+    map_struct = loadmap("maps/map3.txt")
     start = np.array([0,  0, 0, 0, 0, 0])
-    goal = np.array([0, 0, 1.4, 0, 0, 0])
+
+
+    goal = [1.4,  0, 1, 0, 0, 0]
 
     # Run Astar code
     path = potentialFieldPath(deepcopy(map_struct), deepcopy(start), deepcopy(goal))
