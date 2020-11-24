@@ -99,3 +99,72 @@ class calculateFK():
         # Your code ends here
 
         return jointPositions, T0e
+
+    def forwardjoint(self, q,joint):
+        # Your code starts from here
+        # Frame 1 w.r.t Frame 0
+        T1 = np.array([[np.cos(q[0]), -np.sin(q[0])*np.cos(-np.pi/2), np.sin(q[0])*np.sin(-np.pi/2), 0],
+                       [np.sin(q[0]), np.cos(q[0])*np.cos(-np.pi/2), -np.cos(q[0])*np.sin(-np.pi/2), 0],
+                       [0, np.sin(-np.pi/2), np.cos(-np.pi/2), self.L1],
+                       [0, 0, 0, 1]])
+
+        # Frame 2 w.r.t Frame 1
+        T2 = np.array([[np.cos(q[1]-(np.pi/2)), -np.sin(q[1]-(np.pi/2)), 0, self.L2*np.cos(q[1]-(np.pi/2))],
+                       [np.sin(q[1]-(np.pi/2)), np.cos(q[1]-(np.pi/2)), 0, self.L2*np.sin(q[1]-(np.pi/2))],
+                       [0, 0, 1, 0],
+                       [0, 0, 0, 1]])
+
+        # Frame 3 w.r.t Frame 2
+        T3 = np.array([[np.cos(q[2]+(np.pi/2)), -np.sin(q[2]+(np.pi/2)), 0, self.L3*np.cos(q[2]+(np.pi/2))],
+                       [np.sin(q[2]+(np.pi/2)), np.cos(q[2]+(np.pi/2)), 0, self.L3*np.sin(q[2]+(np.pi/2))],
+                       [0, 0, 1, 0],
+                       [0, 0, 0, 1]])
+
+        # Frame 4 w.r.t Frame 3
+        T4 = np.array([[np.cos(q[3]-(np.pi/2)), -np.sin(q[3]-(np.pi/2))*np.cos(-np.pi/2), np.sin(q[3]-(np.pi/2))*np.sin(-np.pi/2), 0],
+                       [np.sin(q[3]-(np.pi/2)), np.cos(q[3]-(np.pi/2))*np.cos(-np.pi/2), -np.cos(q[3]-(np.pi/2))*np.sin(-np.pi/2), 0],
+                       [0, np.sin(-np.pi/2), np.cos(-np.pi/2), 0],
+                       [0, 0, 0, 1]])
+        # Frame 5 w.r.t Frame 4
+        T5 = np.array([[np.cos(q[4]), -np.sin(q[4]), 0, 0],
+                       [np.sin(q[4]), np.cos(q[4]), 0, 0],
+                       [0, 0, 1, self.L4 + self.L5],
+                       [0, 0, 0, 1]])
+
+        x = np.empty((6, 4)).reshape((6, 4))
+        zeroPos = np.array([0, 0, 0, 1]).reshape((1, 4))
+        zeroPos_trans = np.transpose(zeroPos)
+
+        # Position of First Joint (Base Revolute)
+        x[0, :] = zeroPos
+
+        # Position of Second Joint (Shoulder Revolute)
+        x[1, :] = np.transpose(T1.dot(zeroPos_trans))
+
+        # Position of Third Joint (Elbow Revolute)
+        x[2, :] = np.transpose((T1.dot(T2)).dot(zeroPos_trans))
+
+        # Position of Fourth Joint (1st Wrist)
+        x[3, :] = np.transpose(((T1.dot(T2)).dot(T3)).dot(zeroPos_trans))
+
+        # Position of Fifth Joint (2nd Wrist)
+        x[4, :] = np.transpose((((T1.dot(T2)).dot(T3)).dot(T4)).dot(np.array([0, 0, self.L4, 1]).reshape((4, 1))))
+
+        # Position of Gripper (Base of the Gripper)
+        x[5, :] = np.transpose(((((T1.dot(T2)).dot(T3)).dot(T4)).dot(T5)).dot(zeroPos_trans))
+        # Outputs the 6x3 of the locations of each joint in the Base Frame
+        jointPositions = x[0:6,0:3]
+
+        if joint==1:
+            T0i=T1
+        elif joint==2:
+            T0i=(T1.dot(T2))
+        elif joint==3
+            T0i=(T1.dot(T2)).dot(T3)
+        elif joint==4:
+            T0i=((T1.dot(T2)).dot(T3)).dot(T4)
+        elif joint==5:
+            T0i=(((T1.dot(T2)).dot(T3)).dot(T4)).dot(T5)
+        # Your code ends here
+
+        return T0i

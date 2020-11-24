@@ -1,0 +1,989 @@
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 0 0 0 0 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q = [[0. 0. 0. 0. 0. 0.]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 0 0 0 0 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_2 (__main__.TestBase) [Test FK q = [[0.6463 0.7094 0.7547 0.276 0.6797 0.2 ]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 0 0 0 0 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_3 (__main__.TestBase) [Test FK q = [[0.1626 0.119 0.4984 0.9597 0.3404 0.5853]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 0 0 0 0 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_4 (__main__.TestBase) [Test FK q = [[0.2238 0.7513 0.2551 0.506 0.6991 0.8909]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 0 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 0 0 0 0 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 1 0 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 1 0 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 1 0 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 1 0 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 1 0 0]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 1 0 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[0 0 0 0 1 0]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 1 1 1 1 1]] joint = 6Linear velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 51, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_5 (__main__.TestBase) [Test FK q = [[0.9593 0.5472 0.1386 0.1493 0.2575 0.8407]] dq = [[1 1 1 1 1 1]] joint = 6Angular velocity value] (i=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+File "FK_Test.py", line 57, in FK_test
+self.assertTrue(result)
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.163s
+
+FAILED (failures=123)
+21
