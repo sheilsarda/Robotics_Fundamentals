@@ -26,12 +26,12 @@ In order to achieve stable and coordinated reaching motions for multiple arms wh
 
 ## Challenges
 
-### Describe one major challenge of coordinated multi-arm planning compared to the single-arm planning we did in class
+### Major challenges
 
 - Reaching for an object in a smooth and efficient manner requires each hand individually adjusting to the orientation, shape and size of the object
 - Handling multiple constraints simultaneously cannot happen within a few milliseconds using traditional optimal control approaches
 
-### Explain how the authors addressed this challenge
+### How the authors addressed this challenge
 
 - The authors propose an approach which generates coordinated trajectories for a multi-arm robot system that ensures arms will reach the moving object simultaneously
 - The authors use autonomous dynamical systems to instantaneously re-plan the coordination motion for each hand-arm robot
