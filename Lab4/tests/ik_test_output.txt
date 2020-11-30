@@ -1,189 +1,188 @@
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-.
+I fixed the include errors you mentioned and regraded your IK code. New grade is a 6.4. Here is the output:
 
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-.
 
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-.
-
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-.
-
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-Unexpected error: <class 'NameError'>
-.
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [0. 0. 0.] omega = [0.  0.  0.2] joint = 2]
 ----------------------------------------------------------------------
-Ran 5 tests in 0.175s
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
 
-OK
-0
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [0. 0. 0.] omega = [0.  0.  0.2] joint = 2]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [0. 0. 0.] omega = [0.   0.   0.14] joint = 2]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [0. 0. 0.] omega = [0.   0.   0.14] joint = 2]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [0. 0. 0.] omega = [0. 0. 1.] joint = 2]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [0. 0. 0.] omega = [0. 0. 1.] joint = 2]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [0. 0. 0.] omega = [0. 0. 1.] joint = 2]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 4.38150000e+01  1.78859665e-15 -2.68289498e-15] omega = [0.  0.3 0.2] joint = 3]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [-2.92100000e+02  1.25201766e-15  1.78859665e-14] omega = [ 0.   -2.    0.14] joint = 3]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 1.46050000e+02  8.94298325e-15 -8.94298325e-15] omega = [0. 1. 1.] joint = 3]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 1.46050000e+02  8.94298325e-15 -8.94298325e-15] omega = [0. 1. 1.] joint = 3]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 43.815   37.465  505.7775] omega = [ 0.  -2.7  0.2] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [   0.     -101.1555  101.1555] omega = [   0.     -101.1555  101.1555] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 43.815   37.465  505.7775] omega = [0.   7.29 0.04] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 43.815   37.465  505.7775] omega = [nan nan nan] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [-292.1      26.2255   56.1975] omega = [ 0.   -0.3   0.14] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [85322.41         687.77685025  3158.15900625] omega = [ 0.   -0.3   0.14] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [-0.      -7.86765  7.86765] omega = [-0.      -7.86765  7.86765] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [-292.1      26.2255   56.1975] omega = [0.     0.09   0.0196] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [-292.1      26.2255   56.1975] omega = [nan nan nan] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 1.75260000e+02  2.75288354e-14 -4.49580000e+02] omega = [0.00000000e+00 2.40000000e+00 1.46957616e-16] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 1.75260000e+02  2.75288354e-14 -4.49580000e+02] omega = [0.00000000e+00 5.76000000e+00 2.15965409e-32] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_case_1 (__main__.TestBase) [Test FK q  = [[0. 0. 0. 0. 0. 0.]] v = [ 1.75260000e+02  2.75288354e-14 -4.49580000e+02] omega = [nan nan nan] joint = 4]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "IK_Test.py", line 84, in IK_test
+    self.assertTrue(result)
+AssertionError: False is not true
+
+==========

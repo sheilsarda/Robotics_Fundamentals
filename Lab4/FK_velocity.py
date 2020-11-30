@@ -3,7 +3,7 @@ def FK_velocity (q, dq, joint):
     v = np.array([0, 0, 0])
     omega = np.array([0, 0, 0])
 
-    if(joint == 0 or joint >= 6):
+    if(joint == 0 or joint > 6):
         return([0.0, 0.0, 0.0],[0.0, 0.0, 0.0])
     #FK_Velocity
     Jac=calcJacobian(q,joint)
