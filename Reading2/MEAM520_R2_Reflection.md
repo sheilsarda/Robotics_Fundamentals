@@ -35,8 +35,11 @@
 
 - The authors assume that a reasonably accurate model of the task dynamics and sensors is known, and that the principal uncertainty is in the configuration of the robot and the state of the objects in the world
 - Consider a 2D cartesian robot with a finger, and a block on the table. The robot has contact sensors on the tip and each side of the finger
+- The robot's goal is to have the tip of its finger on top of the block
 
 ### Methods
+
+The authors
 
 ### Strengths
 
