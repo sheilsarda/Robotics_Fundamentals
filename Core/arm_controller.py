@@ -45,6 +45,8 @@ class ROSInterface:
                                       [-2, 1.5],
                                       [-15, 30]]).T
 
+        self.start = False # for wait_for_start Start Gun
+
 
 
     def state_cb(self, state):
@@ -71,6 +73,9 @@ class ROSInterface:
 
     def model_cb(self, msg):
         self.model_data = msg;
+
+    def start_cb(self, msg):
+        self.start = True
 
     def opponent_cb(self, msg):
         self.q_opponent = msg.position;
@@ -139,6 +144,9 @@ class ROSInterface:
             self.move_seq = 0
             self.vel_target = deepcopy(state[1])
             self.pos_target = deepcopy(self.pos)
+        elif state[0] == "setpoint":
+            self.move_seq = np.array([state[1]])
+            self.move_ind = 0
 
     # update the waypoint list or integrate the targeted pose due to target velocity
     def update_move(self):
@@ -173,7 +181,7 @@ class ROSInterface:
         self.gripper_pubs[1].publish(Float64(state[-1]))
 
     def loop(self):
-        self.node = rospy.init_node('arm_controller', disable_signals=True)
+        self.node = rospy.init_node(self.namespace[2:-2]+'_arm_controller', disable_signals=True)
         self.rate = rospy.Rate(50)
         self.pos_pubs = []
         self.gripper_pubs = []
@@ -190,6 +198,7 @@ class ROSInterface:
         pose_sub = rospy.Subscriber(self.namespace+"joint_poses", TransformStampedList, self.pose_cb)
         contact_sub = rospy.Subscriber("/collision", ContactsState, self.contact_cb)
 
+        start_sub = rospy.Subscriber("/start", Empty, self.start_cb)
 
         self.model_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, self.model_cb);
 
@@ -258,6 +267,12 @@ class ArmController:
     def set_pos(self, state):
         self.set_state(state)
 
+    # directly modify the PID setpoint
+    def command(self, state):
+        scaled_state = deepcopy(state)
+        scaled_state[-1] = (-scaled_state[-1]+30.)/45.*0.03
+        self.cmd_q.put(("setpoint", scaled_state))
+
     # handle joint limits and scaling for gripper. Note that we left this function
     # interface intact (despite "state" being a misnomer) for some level of
     # backwards compatibility
@@ -323,6 +338,12 @@ class ArmController:
             self.cur_pose = self.pose_q.queue[0]
 
         return np.around(self.cur_pose, decimals=3)
+
+    def wait_for_start(self):
+        print("\n\n\nWaiting for start gun...")
+        while not self.ros.start:
+            sleep(.05)
+        print("\nGo!\n\n\n")
 
     # halt ROS interface so script can terminate
     def stop(self):
@@ -400,6 +421,10 @@ if __name__ == '__main__':
             vel = np.array(msg.velocity)
             lynx.set_vel(vel)
 
+        def setpoint(msg):
+            q = np.array(msg.position)
+            lynx.command(q)
+
         def torque(msg):
             tau = np.array(msg.effort)
             lynx.set_tau(tau)
@@ -414,6 +439,7 @@ if __name__ == '__main__':
 
         pos_sub = rospy.Subscriber(namespace + "arm_interface/position", JointState, position)
         vel_sub = rospy.Subscriber(namespace + "arm_interface/velocity", JointState, velocity)
+        command_sub = rospy.Subscriber(namespace + "arm_interface/setpoint", JointState, setpoint)
         torque_sub = rospy.Subscriber(namespace + "arm_interface/effort", JointState, torque)
         stop_sub = rospy.Subscriber(namespace + "arm_interface/stop", Empty, stop)
 
