@@ -99,7 +99,8 @@ def potentialFieldPath(map, qStart, qGoal):
                         the path. The first row is start and the last row is goal. If no path is found, PATH is a 0x6
                         matrix.
     """
-
+    
+    params = np.empty(4) 
     params[0] =10e5
     params[1] =10
     params[2] =100
