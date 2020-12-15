@@ -250,8 +250,8 @@ def rrt(map, start, numPoints):
 
     # check if start or goal pose is inside a C-space obstacle
     startObstacle = obstacleCollision([start], [start], obstacles)
-    obstacles=np.append(obstacles,base1,axis=0)
-    obstacles=np.append(obstacles,base2,axis=0)
+    # obstacles=np.append(obstacles,base1,axis=0)
+    # obstacles=np.append(obstacles,base2,axis=0)
     if(startObstacle):
         print("Target or Start inside obstacle")
         return ([])
