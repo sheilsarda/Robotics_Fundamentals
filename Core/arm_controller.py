@@ -5,7 +5,7 @@ from al5d_gazebo.msg import TransformStampedList
 from std_msgs.msg import Float64
 from sensor_msgs.msg import JointState
 import threading
-from Queue import Queue
+from queue import Queue
 import numpy as np
 from tf.transformations import quaternion_matrix
 from copy import deepcopy
