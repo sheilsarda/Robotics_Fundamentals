@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 from copy import deepcopy
 from time import sleep
 import numpy as np
@@ -16,7 +16,7 @@ from potentialFieldPath import potentialFieldPath
 
 if __name__=='__main__':
     # Update map location with the location of the target map
-    map_struct = loadmap("maps/map3.txt")
+    map_struct = loadmap("maps/map1.txt")
     start = np.array([0,  0, 0, 0, 0, 0])
 
 
