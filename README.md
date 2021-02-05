@@ -1,4 +1,6 @@
-# MEAM520_Labs
+# Introduction to Robotics
+
+Topics of these labs include: homogeneous transformations, manipulator forward kinematics, manipulator inverse kinematics, Jacobians, and trajectory planning. 
 
 ## Lab 0: Run and Characterize the Lynx in Gazebo
 
