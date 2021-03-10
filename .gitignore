@@ -7,12 +7,10 @@
 
 *.doc
 
-Final/*
-
-Final
-
 *.pyc
 
 /Simulator (non VM use only)/*
 
 /Core/*
+
+/Final_Project/*
