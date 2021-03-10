@@ -9,8 +9,9 @@
 
 *.pyc
 
+/Final_Project/*
+
 /Simulator (non VM use only)/*
 
 /Core/*
 
-/Final_Project/*
