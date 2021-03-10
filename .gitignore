@@ -13,3 +13,6 @@ Final
 
 *.pyc
 
+/Simulator (non VM use only)/*
+
+/Core/*
