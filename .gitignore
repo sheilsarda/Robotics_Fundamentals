@@ -3,6 +3,7 @@
 *.mp4
 
 *.docx
+*.pptx
 
 *.doc
 
@@ -11,3 +12,4 @@ Final/*
 Final
 
 *.pyc
+
